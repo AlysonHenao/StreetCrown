@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
  * PRODUCT ATTRIBUTES
@@ -93,7 +93,7 @@ class Product extends Model
 
     public function setImage(?string $image): void
     {
-        $this->attributes['image'] = $image;    
+        $this->attributes['image'] = $image;
     }
 
     public function getDescription(): ?string
