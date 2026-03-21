@@ -14,7 +14,6 @@ class ProductSeeder extends Seeder
 
         $normalCategories = Category::where('name', '!=', 'Exclusive')->get();
 
-        
         Product::factory()->count(30)->make()->each(function ($product) use ($exclusive, $normalCategories) {
 
             if ($product->getExclusive()) {
