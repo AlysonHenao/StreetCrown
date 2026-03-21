@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * PRODUCT ATTRIBUTES
@@ -15,11 +16,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * $this->attributes['brand'] - string - contains the product brand
  * $this->attributes['price'] - int - contains the product price
  * $this->attributes['exclusive'] - bool - indicates whether the product is exclusive
- * $this->attributes['image_url'] - string - contains the product image URL
+ * $this->attributes['image'] - string - contains the product image
  * $this->attributes['description'] - string - contains the product description
  * $this->attributes['color'] - string - contains the product color
  * $this->attributes['discount'] - int - contains the product discount percentage or value
  * $this->attributes['active'] - bool - indicates whether the product is active
+ * $this->attributes['stock'] - int - contains the product stock quantity
  * $this->attributes['category_id'] - int - contains the associated category id
  * $this->attributes['created_at'] - timestamp - contains product creation date
  * $this->attributes['updated_at'] - timestamp - contains product update date
@@ -29,7 +31,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Product extends Model
 {
-    protected $fillable = ['name', 'size', 'brand', 'price', 'exclusive', 'image_url', 'description', 'color', 'discount', 'active', 'category_id'];
+    use HasFactory;
+
+    protected $fillable = ['name', 'size', 'brand', 'price', 'exclusive', 'image', 'description', 'color', 'discount', 'active', 'stock', 'category_id'];
 
     public function getId(): int
     {
@@ -134,6 +138,16 @@ class Product extends Model
     public function setActive(bool $active): void
     {
         $this->attributes['active'] = $active;
+    }
+
+    public function getStock(): int
+    {
+        return $this->attributes['stock'];
+    }
+
+    public function setStock(int $stock): void
+    {
+        $this->attributes['stock'] = $stock;
     }
 
     public function getCategoryId(): int
