@@ -31,4 +31,6 @@ return [
 
     'failed'                  => 'Las credenciales no coinciden con nuestros registros.',
     'throttle'                => 'Demasiados intentos. Por favor intenta de nuevo en :seconds segundos.',
+
+    'unauthorized'             => 'No tienes permisos para acceder a esta sección.',
 ];

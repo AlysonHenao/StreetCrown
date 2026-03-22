@@ -19,6 +19,7 @@ use Illuminate\Notifications\Notifiable;
  * $this->attributes['email'] - string - contains the user email
  * $this->attributes['email_verified_at'] - timestamp - contains the email verification date
  * $this->attributes['password'] - string - contains the user password
+ * $this->attributes['role'] - string - contains the user role
  * $this->attributes['remember_token'] - string - contains the remember token
  * $this->attributes['created_at'] - timestamp - contains user creation date
  * $this->attributes['updated_at'] - timestamp - contains user update date
@@ -26,6 +27,9 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
+     public const ROLE_ADMIN = 'admin';
+     public const ROLE_USER = 'user';
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
@@ -38,6 +42,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -96,6 +101,16 @@ class User extends Authenticatable
     public function setPassword(string $password): void
     {
         $this->attributes['password'] = $password;
+    }
+
+    public function getRole(): string
+    {
+        return $this->attributes['role'] ?? self::ROLE_USER;
+    }
+
+    public function setRole(string $role): void
+    {
+        $this->attributes['role'] = $role;
     }
 
     public function getEmailVerifiedAt(): ?string
