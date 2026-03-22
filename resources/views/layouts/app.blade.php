@@ -63,7 +63,7 @@
                             </a>
                         @endif
 
-                        @if(auth()->user()->role === 'admin' && Route::has('admin.product.index'))
+                        @if(auth()->user()->getRole() === 'admin' && Route::has('admin.product.index'))
                             <a class="nav-link" href="{{ route('admin.product.index') }}">
                                 {{ __('layout.admin_panel') }}
                             </a>

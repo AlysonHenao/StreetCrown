@@ -1,0 +1,9 @@
+/* Author: Samuel Moncada Mejía */
+
+/* Shared app styles (Bootstrap-first). Keep custom CSS minimal. */
+
+/* Improves SVG alignment inside Bootstrap input groups/buttons */
+.input-group-text svg,
+.btn svg {
+    display: block;
+}
