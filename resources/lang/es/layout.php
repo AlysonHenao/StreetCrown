@@ -1,4 +1,5 @@
 <?php
+// Author: Samuel Moncada Mejía
 
 return [
     'app_title' => 'StreetCrown',
@@ -15,9 +16,14 @@ return [
     'products' => 'Productos',
     'cart' => 'Carrito',
     'login' => 'Iniciar sesión',
+    'register' => 'Registrarse',
     'logout' => 'Cerrar sesión',
+    'dashboard' => 'Panel',
     'orders' => 'Pedidos',
     'admin_panel' => 'Panel admin',
+
+    'welcome_lead' => 'Bienvenido a la tienda de gorras más exclusiva.',
+    'view_products' => 'Ver productos',
 
     'admin_products' => 'Productos',
     'admin_categories' => 'Categorías',
