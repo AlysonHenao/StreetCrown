@@ -121,7 +121,7 @@
                 @if($product->getImage())
                 <img src="{{ asset('images/products/' . $product->getImage()) }}" class="card-img-top" alt="{{ $product->getName() }}">
                 @else
-                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center product-image-placeholder-md">
                     <span class="text-muted">{{ __('product.no_image') }}</span>
                 </div>
                 @endif

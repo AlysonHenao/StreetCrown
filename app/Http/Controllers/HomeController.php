@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function index(): View
     {
         $viewData = [];
-        $viewData['title'] = 'StreetCrown';
+        $viewData['title'] = __('layout.app_title');
         $viewData['topProducts'] = collect();
 
         if (Schema::hasTable('products') && Schema::hasTable('items') && Schema::hasTable('orders')) {

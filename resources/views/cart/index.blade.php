@@ -11,12 +11,12 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Product</th>
-                <th>Image</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>SubTotal</th>
-                <th>Actions</th>
+                <th>{{ __('order.product') }}</th>
+                <th>{{ __('order.image') }}</th>
+                <th>{{ __('order.price') }}</th>
+                <th>{{ __('order.quantity') }}</th>
+                <th>{{ __('order.subtotal') }}</th>
+                <th>{{ __('order.actions') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -32,7 +32,7 @@
                         @csrf
                         @method('PUT')
                         <input type="number" name="quantity" value="{{ $cartItem['quantity'] }}" min="1">
-                        <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                        <button type="submit" class="btn btn-sm btn-primary">{{ __('order.update') }}</button>
                     </form>
                 </td>
                 <td>${{ $cartItem['subtotal'] }}</td>
@@ -40,7 +40,7 @@
                     <form action="{{ route('cart.remove', $cartItem['product_id']) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                        <button type="submit" class="btn btn-sm btn-danger">{{ __('order.remove') }}</button>
                     </form>
                 </td>
             </tr>
@@ -48,29 +48,29 @@
         </tbody>
     </table>
 
-    <p><strong>Total quantity:</strong> {{ $viewData['totalQuantity'] }}</p>
-    <p><strong>Total amount:</strong> ${{ $viewData['totalAmount'] }}</p>
+    <p><strong>{{ __('order.total_items') }}:</strong> {{ $viewData['totalQuantity'] }}</p>
+    <p><strong>{{ __('order.total') }}:</strong> ${{ $viewData['totalAmount'] }}</p>
 
     <form action="{{ route('cart.clear') }}" method="POST" class="mb-3">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-warning">Clear cart</button>
+        <button type="submit" class="btn btn-warning">{{ __('order.clear_cart') }}</button>
     </form>
 
     <form action="{{ route('order.store') }}" method="POST">
         @csrf
         <div class="mb-3">
-            <label for="payment_method" class="form-label">Payment method</label>
+            <label for="payment_method" class="form-label">{{ __('order.payment_method') }}</label>
             <select name="payment_method" id="payment_method" class="form-control">
-                <option value="cash">Cash</option>
-                <option value="card">Card</option>
-                <option value="transfer">Transfer</option>
+                <option value="cash">{{ __('order.payment_cash') }}</option>
+                <option value="card">{{ __('order.payment_card') }}</option>
+                <option value="transfer">{{ __('order.payment_transfer') }}</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-success">Place order</button>
+        <button type="submit" class="btn btn-success">{{ __('order.place_order') }}</button>
     </form>
     @else
-    <p>Your cart is empty.</p>
+    <p>{{ __('order.cart_empty') }}</p>
     @endif
 </div>
 @endsection

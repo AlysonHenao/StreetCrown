@@ -11,7 +11,7 @@
             @if($viewData['product']->getImage())
             <img src="{{ asset('images/products/' . $viewData['product']->getImage()) }}" class="img-fluid rounded" alt="{{ $viewData['product']->getName() }}">
             @else
-            <div class="bg-light d-flex align-items-center justify-content-center rounded" style="height: 500px;">
+            <div class="bg-light d-flex align-items-center justify-content-center rounded product-image-placeholder-lg">
                 <span class="text-muted">{{ __('product.no_image') }}</span>
             </div>
             @endif

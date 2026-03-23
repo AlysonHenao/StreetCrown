@@ -19,6 +19,7 @@ return [
     'order_details' => 'Detalles del Pedido',
     'items' => 'Artículos del Pedido',
     'product' => 'Producto',
+    'image' => 'Imagen',
     'quantity' => 'Cantidad',
     'price' => 'Precio',
     'subtotal' => 'Subtotal',
