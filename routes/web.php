@@ -17,13 +17,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
     Route::get('/products/{product}/reviews/create', 'App\Http\Controllers\ReviewController@create')->name('review.create');
     Route::post('/products/{product}/reviews', 'App\Http\Controllers\ReviewController@store')->name('review.store');
-    
-    Route::get('/orders', 'App\Http\Controllers\OrderController@index')->name('order.index');
-    Route::get('/orders/{order}', 'App\Http\Controllers\OrderController@show')->name('order.show');
-    Route::post('/orders', 'App\Http\Controllers\OrderController@store')->name('order.store');
 });
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', 'App\Http\Controllers\Admin\AdminController@index')->name('index');
 
     Route::get('/categories', 'App\Http\Controllers\Admin\CategoryController@index')->name('category.index');

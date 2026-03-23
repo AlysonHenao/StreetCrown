@@ -22,13 +22,12 @@ use Illuminate\Notifications\Notifiable;
  * $this->attributes['remember_token'] - string - contains the remember token
  * $this->attributes['created_at'] - timestamp - contains user creation date
  * $this->attributes['updated_at'] - timestamp - contains user update date
- * $this->orders - Order[] - contains the associated orders
  * $this->reviews - Review[] - contains the associated reviews
  */
 class User extends Authenticatable
 {
-     public const ROLE_ADMIN = 'admin';
-     public const ROLE_USER = 'user';
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_USER = 'user';
 
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -67,7 +66,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
     public function getId(): int
     {
         return $this->attributes['id'];
@@ -103,21 +101,6 @@ class User extends Authenticatable
         $this->attributes['password'] = $password;
     }
 
-    public function getRole(): string
-    {
-        return $this->attributes['role'] ?? self::ROLE_USER;
-    }
-
-    public function setRole(string $role): void
-    {
-        $this->attributes['role'] = $role;
-    }
-
-    public function getEmailVerifiedAt(): ?string
-    {
-        return $this->attributes['email_verified_at'];
-    }
-
     public function getCreatedAt(): string
     {
         return $this->attributes['created_at'];
@@ -126,16 +109,6 @@ class User extends Authenticatable
     public function getUpdatedAt(): string
     {
         return $this->attributes['updated_at'];
-    }
-
-    public function reviews(): HasMany
-    {
-        return $this->hasMany(Review::class);
-    }
-
-    public function getReviews(): Collection
-    {
-        return $this->reviews;
     }
 
     public function orders(): HasMany
