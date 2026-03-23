@@ -1,24 +1,18 @@
 <?php
+// Author: Alyson Henao
 
 namespace App\Providers;
 
+use App\Contracts\CartServiceInterface;
+use App\Services\CartSessionService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
-        //
+        $this->app->bind(CartServiceInterface::class, CartSessionService::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        //
-    }
+    public function boot(): void {}
 }

@@ -22,3 +22,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::put('/categories/{id}', 'App\Http\Controllers\Admin\CategoryController@update')->name('category.update');
     Route::delete('/categories/{id}', 'App\Http\Controllers\Admin\CategoryController@destroy')->name('category.destroy');
 });
+
+Route::get('/cart', 'App\Http\Controllers\CartController@index')->name('cart.index');
+Route::post('/cart/add', 'App\Http\Controllers\CartController@add')->name('cart.add');
+Route::put('/cart/{productId}', 'App\Http\Controllers\CartController@update')->name('cart.update');
+Route::delete('/cart/{productId}', 'App\Http\Controllers\CartController@remove')->name('cart.remove');
+Route::delete('/cart', 'App\Http\Controllers\CartController@clear')->name('cart.clear');
