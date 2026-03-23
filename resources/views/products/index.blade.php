@@ -26,7 +26,7 @@
                             <p class="card-text small">{{ Str::limit($product->getDescription(), 100) }}</p>
                             <div class="mt-auto">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="h5 mb-0">${{ number_format($product->getPrice() / 100, 2) }}</span>
+                                    <span class="h5 mb-0">{{ number_format($product->getPrice(), 0, ',', '.') }} COP</span>
                                     @if($product->getStock() > 0)
                                         <span class="badge bg-success">{{ __('product.in_stock') }}</span>
                                     @else

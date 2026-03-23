@@ -21,7 +21,7 @@
             <p class="text-muted mb-3">{{ __('product.brand') }}: {{ $viewData['product']->getBrand() }}</p>
             
             <div class="mb-3">
-                <h4 class="mb-2">${{ number_format($viewData['product']->getPrice() / 100, 2) }}</h4>
+                <h4 class="mb-2">{{ number_format($viewData['product']->getPrice(), 0, ',', '.') }} COP</h4>
                 @if($viewData['product']->getStock() > 0)
                     <span class="badge bg-success me-2">{{ __('product.in_stock') }}</span>
                     <small class="text-muted">{{ __('product.stock') }}: {{ $viewData['product']->getStock() }}</small>

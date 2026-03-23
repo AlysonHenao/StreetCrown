@@ -37,7 +37,7 @@
                             <p><strong>{{ __('order.payment_method') }}:</strong> {{ $viewData['order']->getPaymentMethod() }}</p>
                         </div>
                         <div class="col-md-6">
-                            <p><strong>{{ __('order.total') }}:</strong> <span class="text-success fw-bold">${{ number_format($viewData['order']->getTotal() / 100, 2) }}</span></p>
+                            <p><strong>{{ __('order.total') }}:</strong> <span class="text-success fw-bold">{{ number_format($viewData['order']->getTotal(), 0, ',', '.') }} COP</span></p>
                         </div>
                     </div>
                 </div>
@@ -64,8 +64,8 @@
                                         <tr>
                                             <td>{{ $item->getProduct()->getName() }}</td>
                                             <td>{{ $item->getQuantity() }}</td>
-                                            <td>${{ number_format($item->getPrice() / 100, 2) }}</td>
-                                            <td>${{ number_format(($item->getPrice() * $item->getQuantity()) / 100, 2) }}</td>
+                                            <td>{{ number_format($item->getPrice(), 0, ',', '.') }} COP</td>
+                                            <td>{{ number_format(($item->getPrice() * $item->getQuantity()), 0, ',', '.') }} COP</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -87,7 +87,7 @@
                     <hr />
                     <p class="text-end">
                         <strong>{{ __('order.total') }}:</strong><br/>
-                        <span class="text-success fs-5 fw-bold">${{ number_format($viewData['order']->getTotal() / 100, 2) }}</span>
+                        <span class="text-success fs-5 fw-bold">{{ number_format($viewData['order']->getTotal(), 0, ',', '.') }} COP</span>
                     </p>
                 </div>
             </div>

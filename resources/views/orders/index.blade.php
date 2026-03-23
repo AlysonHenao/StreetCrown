@@ -32,7 +32,7 @@
                                 <tr>
                                     <td>#{{ $order->getId() }}</td>
                                     <td>{{ $order->getDate() }}</td>
-                                    <td>${{ number_format($order->getTotal() / 100, 2) }}</td>
+                                    <td>{{ number_format($order->getTotal(), 0, ',', '.') }} COP</td>
                                     <td>
                                         @if($order->getStatus() === 'pending')
                                             <span class="badge bg-warning">{{ __('order.status_pending') }}</span>
