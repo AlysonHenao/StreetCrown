@@ -26,4 +26,11 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/categories/{id}/edit', 'App\Http\Controllers\Admin\CategoryController@edit')->name('category.edit');
     Route::put('/categories/{id}', 'App\Http\Controllers\Admin\CategoryController@update')->name('category.update');
     Route::delete('/categories/{id}', 'App\Http\Controllers\Admin\CategoryController@destroy')->name('category.destroy');
+
+    Route::get('/products', 'App\Http\Controllers\Admin\ProductController@index')->name('product.index');
+    Route::get('/products/create', 'App\Http\Controllers\Admin\ProductController@create')->name('product.create');
+    Route::post('/products', 'App\Http\Controllers\Admin\ProductController@store')->name('product.store');
+    Route::get('/products/{id}/edit', 'App\Http\Controllers\Admin\ProductController@edit')->name('product.edit');
+    Route::put('/products/{id}', 'App\Http\Controllers\Admin\ProductController@update')->name('product.update');
+    Route::delete('/products/{id}', 'App\Http\Controllers\Admin\ProductController@destroy')->name('product.destroy');
 });
