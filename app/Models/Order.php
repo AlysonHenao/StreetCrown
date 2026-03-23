@@ -1,5 +1,5 @@
 <?php
-// Author: Alyson Henao
+// Author: Emmanuel Cortes
 
 namespace App\Models;
 
