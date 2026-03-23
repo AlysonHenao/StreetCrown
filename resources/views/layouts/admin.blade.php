@@ -23,7 +23,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
         <div class="container">
             @if(Route::has('admin.product.index'))
-                <a class="navbar-brand" href="{{ route('admin.product.index') }}">
+                <a class="navbar-brand" href="{{ route('admin.index') }}">
                     {{ __('layout.admin_brand') }}
                 </a>
             @endif
@@ -42,6 +42,12 @@
 
             <div class="collapse navbar-collapse" id="adminNavbar">
                 <div class="navbar-nav ms-auto align-items-lg-center">
+                    @if(Route::has('admin.index'))
+                        <a class="nav-link" href="{{ route('admin.index') }}">
+                            {{ __('layout.admin_panel') }}
+                        </a>
+                    @endif   
+                    
                     @if(Route::has('admin.product.index'))
                         <a class="nav-link" href="{{ route('admin.product.index') }}">
                             {{ __('layout.admin_products') }}
