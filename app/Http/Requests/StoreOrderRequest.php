@@ -1,5 +1,6 @@
 <?php
-// Author: Emmanuel Cortes, Samuel Moncada Mejía
+
+// Author: Emmanuel Cortes
 
 namespace App\Http\Requests;
 

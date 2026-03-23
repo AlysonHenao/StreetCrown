@@ -1,4 +1,5 @@
 <?php
+
 // Author: Alyson Henao
 
 namespace App\Http\Controllers\Admin;
@@ -79,7 +80,7 @@ class ProductController extends Controller
     {
         $exclusiveCategory = Category::whereRaw('LOWER(name) = ?', ['exclusive'])->first();
 
-        if (!$exclusiveCategory) {
+        if (! $exclusiveCategory) {
             return $data;
         }
 

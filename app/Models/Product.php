@@ -1,5 +1,6 @@
 <?php
-// Author: Alyson Henao
+
+// Author: Alyson Henao, Emmanuel Cortes
 
 namespace App\Models;
 
@@ -8,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\DB;
 
 /**
  * PRODUCT ATTRIBUTES
@@ -204,27 +204,15 @@ class Product extends Model
 
     public static function getTopSellingProducts(int $limit = 3): Collection
     {
-        return self::select('products.*', DB::raw('SUM(items.quantity) as sold_quantity'))
-            ->join('items', 'products.id', '=', 'items.product_id')
-            ->join('orders', 'items.order_id', '=', 'orders.id')
+        return self::query()
             ->where('products.active', true)
-            ->whereIn('orders.status', ['placed', 'paid'])
-            ->groupBy(
-                'products.id',
-                'products.name',
-                'products.size',
-                'products.brand',
-                'products.price',
-                'products.exclusive',
-                'products.image',
-                'products.description',
-                'products.color',
-                'products.discount',
-                'products.active',
-                'products.category_id',
-                'products.created_at',
-                'products.updated_at'
-            )
+            ->withSum([
+                'items as sold_quantity' => function ($query) {
+                    $query->whereHas('order', function ($orderQuery) {
+                        $orderQuery->whereIn('status', ['placed', 'paid', 'completed']);
+                    });
+                },
+            ], 'quantity')
             ->orderByDesc('sold_quantity')
             ->limit($limit)
             ->get();

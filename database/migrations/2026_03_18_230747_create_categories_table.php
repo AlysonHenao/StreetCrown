@@ -1,4 +1,5 @@
 <?php
+
 // Author: Alyson Henao
 
 use Illuminate\Database\Migrations\Migration;

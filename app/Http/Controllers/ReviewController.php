@@ -1,4 +1,5 @@
 <?php
+
 // Author: Samuel Moncada Mejía
 
 namespace App\Http\Controllers;
@@ -7,8 +8,8 @@ use App\Http\Requests\ReviewRequest;
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class ReviewController extends Controller
 {

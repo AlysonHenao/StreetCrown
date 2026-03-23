@@ -1,5 +1,6 @@
 <?php
-// Author: Samuel Moncada Mejía
+
+// Author: Samuel Moncada Mejía, Emmanuel Cortes
 
 return [
     'index_title' => 'Mis Pedidos',
@@ -24,7 +25,7 @@ return [
     'order_summary' => 'Resumen del Pedido',
     'created_at' => 'Creado el',
     'back_to_orders' => 'Volver a Mis Pedidos',
-    
+
     'total_required' => 'El total es requerido',
     'total_integer' => 'El total debe ser un número entero',
     'total_min' => 'El total debe ser mayor a 0',
@@ -35,4 +36,18 @@ return [
     'status_required' => 'El estado es requerido',
     'status_invalid' => 'El estado no es válido',
     'created_successfully' => 'Pedido creado exitosamente.',
+    'cart_title' => 'Carrito de compras',
+    'cart_empty' => 'Tu carrito está vacío.',
+    'cart_added_successfully' => 'Producto agregado al carrito.',
+    'cart_updated_successfully' => 'Carrito actualizado.',
+    'cart_removed_successfully' => 'Producto eliminado del carrito.',
+    'cart_cleared_successfully' => 'Carrito vaciado.',
+    'clear_cart' => 'Vaciar carrito',
+    'update' => 'Actualizar',
+    'remove' => 'Eliminar',
+    'total_items' => 'Total de unidades',
+    'place_order' => 'Realizar pedido',
+    'payment_cash' => 'Efectivo',
+    'payment_card' => 'Tarjeta',
+    'payment_transfer' => 'Transferencia',
 ];

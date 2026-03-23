@@ -1,65 +1,102 @@
 <?php
-// Author: Emmanuel Cortes, Samuel Moncada Mejía
+
+// Author: Samuel Moncada Mejía, Emmanuel Cortes
 
 namespace App\Http\Controllers;
 
-use App\Contracts\OrderServiceInterface;
 use App\Http\Requests\StoreOrderRequest;
+use App\Models\Item;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class OrderController extends Controller
 {
     use AuthorizesRequests;
 
-    private OrderServiceInterface $orderService;
-
-    public function __construct(OrderServiceInterface $orderService)
-    {
-        $this->orderService = $orderService;
-    }
+    private const CART_KEY = 'shopping_cart';
 
     public function index(): View
     {
-        $user = Auth::user();
+        $authenticatedUserId = (int) Auth::id();
 
-        $viewData = [];
-        $viewData['title'] = __('order.index_title');
-        $viewData['orders'] = Order::with('items.product')
-            ->where('user_id', $user->getId())
-            ->orderByDesc('id')
-            ->get();
+        $viewData = [
+            'orders' => Order::with('items.product')
+                ->where('user_id', $authenticatedUserId)
+                ->orderByDesc('id')
+                ->get(),
+            'title' => __('order.index_title'),
+        ];
 
-        return view('order.index')->with('viewData', $viewData);
+        return view('orders.index', ['viewData' => $viewData]);
     }
 
-    public function show(int $id): View
+    public function show(Order $order): View
     {
-        $user = Auth::user();
+        $this->authorize('view', $order);
+        $order->loadMissing('items.product');
 
-        $order = Order::with('items.product')->findOrFail($id);
+        $viewData = [
+            'order' => $order,
+            'title' => __('order.show_title'),
+        ];
 
-        abort_if($order->getUserId() !== $user->getId(), 403);
-
-        $viewData = [];
-        $viewData['title'] = __('order.show_title');
-        $viewData['order'] = $order;
-
-        return view('order.show')->with('viewData', $viewData);
+        return view('orders.show', ['viewData' => $viewData]);
     }
 
     public function store(StoreOrderRequest $request): RedirectResponse
     {
-        $paymentMethod = $request->validated('payment_method');
-        $user = Auth::user();
+        $cart = Session::get(self::CART_KEY, []);
 
-        $order = $this->orderService->createFromCart($user, $paymentMethod);
+        if (count($cart) === 0) {
+            return redirect()->route('cart.index')->with('error', __('order.cart_empty'));
+        }
 
-        return redirect()
-            ->route('order.show', $order->getId())
+        $paymentMethod = (string) $request->validated('payment_method');
+        $authenticatedUserId = (int) Auth::id();
+
+        $order = DB::transaction(function () use ($cart, $paymentMethod, $authenticatedUserId) {
+            $order = new Order;
+            $order->setUserId($authenticatedUserId);
+            $order->setPaymentMethod($paymentMethod);
+            $order->setDate(date('Y-m-d'));
+            $order->setStatus('placed');
+            $order->setTotal(0);
+            $order->save();
+
+            $total = 0;
+
+            foreach ($cart as $productId => $quantity) {
+                $product = Product::where('active', true)->find((int) $productId);
+
+                if (! $product || (int) $quantity <= 0) {
+                    continue;
+                }
+
+                $item = new Item;
+                $item->setOrderId($order->getId());
+                $item->setProductId($product->getId());
+                $item->setQuantity((int) $quantity);
+                $item->setPrice($product->getPrice());
+                $item->save();
+
+                $total += $item->calculateSubTotal();
+            }
+
+            $order->setTotal($total);
+            $order->save();
+
+            return $order;
+        });
+
+        Session::forget(self::CART_KEY);
+
+        return redirect()->route('order.show', $order->getId())
             ->with('success', __('order.created_successfully'));
     }
 }

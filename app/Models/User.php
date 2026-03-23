@@ -1,4 +1,5 @@
 <?php
+
 // Author: Samuel Moncada Mejía
 
 namespace App\Models;
@@ -27,8 +28,9 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-     public const ROLE_ADMIN = 'admin';
-     public const ROLE_USER = 'user';
+    public const ROLE_ADMIN = 'admin';
+
+    public const ROLE_USER = 'user';
 
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;

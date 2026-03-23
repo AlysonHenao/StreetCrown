@@ -1,65 +1,125 @@
 <?php
+
 // Author: Emmanuel Cortes
 
 namespace App\Http\Controllers;
 
-use App\Contracts\CartServiceInterface;
-use App\Http\Requests\AddToCartRequest;
-use App\Http\Requests\RemoveFromCartRequest;
-use App\Http\Requests\UpdateCartItemRequest;
+use App\Models\Item;
+use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class CartController extends Controller
 {
-    private CartServiceInterface $cartService;
-
-    public function __construct(CartServiceInterface $cartService)
-    {
-        $this->cartService = $cartService;
-    }
+    private const CART_KEY = 'shopping_cart';
 
     public function index(): View
     {
+        $cartItems = $this->buildCartItems();
+
         $viewData = [];
-        $viewData['title'] = 'Shopping Cart';
-        $viewData['cartItems'] = $this->cartService->getCart();
-        $viewData['totalQuantity'] = $this->cartService->getTotalQuantity();
-        $viewData['totalAmount'] = $this->cartService->getTotalAmount();
+        $viewData['title'] = __('order.cart_title');
+        $viewData['isCartView'] = true;
+        $viewData['cartItems'] = $cartItems;
+        $viewData['totalQuantity'] = $cartItems->sum(fn(Item $item) => $item->getQuantity());
+        $viewData['totalAmount'] = $cartItems->sum(fn(Item $item) => $item->calculateSubTotal());
 
-        return view('cart.index')->with('viewData', $viewData);
+        return view('home.index', ['viewData' => $viewData]);
     }
 
-    public function add(AddToCartRequest $request): RedirectResponse
+    public function add(Request $request): RedirectResponse
     {
-        $productId = (int) $request->validated('product_id');
-        $quantity = (int) ($request->validated('quantity') ?? 1);
+        $productId = (int) $request->input('product_id', 0);
+        $requestedQuantity = max(1, (int) $request->input('quantity', 1));
 
-        $this->cartService->addProduct($productId, $quantity);
+        $product = Product::where('active', true)->findOrFail($productId);
 
-        return redirect()->route('cart.index');
+        $cart = $this->getCart();
+        $currentQuantity = (int) ($cart[$productId] ?? 0);
+        $newQuantity = min($product->getStock(), $currentQuantity + $requestedQuantity);
+
+        if ($newQuantity > 0) {
+            $cart[$productId] = $newQuantity;
+            Session::put(self::CART_KEY, $cart);
+        }
+
+        return redirect()->route('cart.index')->with('success', __('order.cart_added_successfully'));
     }
 
-    public function update(UpdateCartItemRequest $request, int $productId): RedirectResponse
+    public function update(Request $request, int $productId): RedirectResponse
     {
-        $quantity = (int) $request->validated('quantity');
+        $quantity = max(0, (int) $request->input('quantity', 1));
 
-        $this->cartService->updateProduct($productId, $quantity);
+        $cart = $this->getCart();
 
-        return redirect()->route('cart.index');
+        if (! array_key_exists($productId, $cart)) {
+            return redirect()->route('cart.index');
+        }
+
+        if ($quantity === 0) {
+            unset($cart[$productId]);
+        } else {
+            $product = Product::where('active', true)->findOrFail($productId);
+            $cart[$productId] = min($product->getStock(), $quantity);
+        }
+
+        Session::put(self::CART_KEY, $cart);
+
+        return redirect()->route('cart.index')->with('success', __('order.cart_updated_successfully'));
     }
 
-    public function remove(RemoveFromCartRequest $request, int $productId): RedirectResponse
+    public function remove(int $productId): RedirectResponse
     {
-        $this->cartService->removeProduct($productId);
+        $cart = $this->getCart();
 
-        return redirect()->route('cart.index');
+        if (array_key_exists($productId, $cart)) {
+            unset($cart[$productId]);
+            Session::put(self::CART_KEY, $cart);
+        }
+
+        return redirect()->route('cart.index')->with('success', __('order.cart_removed_successfully'));
     }
 
     public function clear(): RedirectResponse
     {
-        $this->cartService->clearCart();
+        Session::forget(self::CART_KEY);
 
-        return redirect()->route('cart.index');
+        return redirect()->route('cart.index')->with('success', __('order.cart_cleared_successfully'));
+    }
+
+    public function getCart(): array
+    {
+        return Session::get(self::CART_KEY, []);
+    }
+
+    private function buildCartItems()
+    {
+        $cart = $this->getCart();
+
+        if (count($cart) === 0) {
+            return collect();
+        }
+
+        $products = Product::whereIn('id', array_keys($cart))
+            ->where('active', true)
+            ->get()
+            ->keyBy(fn(Product $product) => $product->getId());
+
+        return collect($cart)
+            ->filter(fn(int $quantity, int $productId) => $quantity > 0 && isset($products[$productId]))
+            ->map(function (int $quantity, int $productId) use ($products) {
+                $product = $products[$productId];
+
+                $item = new Item;
+                $item->setProductId($product->getId());
+                $item->setQuantity($quantity);
+                $item->setPrice($product->getPrice());
+                $item->setRelation('product', $product);
+
+                return $item;
+            })
+            ->values();
     }
 }

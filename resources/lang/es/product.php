@@ -1,5 +1,6 @@
 <?php
-// Author: Alyson Henao
+
+// Author: Alyson Henao, Emmanuel Cortes
 
 return [
     'admin_list_title' => 'Productos - Panel Administrativo',
@@ -41,9 +42,13 @@ return [
     'out_of_stock' => 'Agotado',
     'no_image' => 'Imagen no disponible',
     'add_to_cart' => 'Agregar al Carrito',
+    'quantity' => 'Cantidad',
     'view_details' => 'Ver Detalles',
     'write_review' => 'Escribir una Reseña',
     'login_to_review' => 'Inicia sesión para escribir una reseña',
     'reviews' => 'Reseñas',
     'no_products' => 'No hay productos disponibles en este momento',
+    'top_selling_title' => 'Top 3 productos más vendidos',
+    'top_selling_empty' => 'Aun no hay ventas registradas para mostrar este ranking.',
+    'units_sold' => 'Unidades vendidas',
 ];

@@ -1,4 +1,5 @@
 <?php
+
 // Author: Alyson Henao
 
 namespace App\Models;
@@ -67,5 +68,4 @@ class Category extends Model
     {
         return $this->products;
     }
-
 }

@@ -1,6 +1,8 @@
 <?php
+
 // Author: Samuel Moncada Mejía
 
+use App\Http\Middleware\CheckAdmin;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -15,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'guest' => RedirectIfAuthenticated::class,
-            'admin' => \App\Http\Middleware\CheckAdmin::class,
+            'admin' => CheckAdmin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

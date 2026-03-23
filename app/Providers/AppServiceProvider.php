@@ -1,21 +1,25 @@
 <?php
-// Author: Alyson Henao
 
 namespace App\Providers;
 
-use App\Contracts\CartServiceInterface;
-use App\Services\CartSessionService;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-use App\Contracts\OrderServiceInterface;
-use App\Services\OrderService;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * Register any application services.
+     */
     public function register(): void
     {
-        $this->app->bind(CartServiceInterface::class, CartSessionService::class);
-        $this->app->bind(OrderServiceInterface::class, OrderService::class);
+        //
     }
 
-    public function boot(): void {}
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        Paginator::useBootstrapFive();
+    }
 }
