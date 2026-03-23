@@ -21,7 +21,7 @@ class ProductFactory extends Factory
             'brand' => fake()->randomElement(['Goorin Bros', 'New Era', 'Clemont', 'Barbas Hat', 'Amiri']),
             'price' => fake()->numberBetween(50000, 350000),
             'exclusive' => fake()->boolean(20),
-            'image' => 'images/products/default-cap.jpg',
+            'image' => 'default-cap.jpg',
             'description' => fake()->sentence(12),
             'color' => fake()->safeColorName(),
             'discount' => fake()->boolean(25)

@@ -1,0 +1,49 @@
+<?php
+// Author: Alyson Henao
+
+return [
+    'admin_list_title' => 'Productos - Panel Administrativo',
+    'admin_list_subtitle' => 'Gestión de productos',
+    'create_title' => 'Crear producto',
+    'create_subtitle' => 'Nuevo producto',
+    'edit_title' => 'Editar producto',
+    'edit_subtitle' => 'Modificar producto',
+
+    'name' => 'Nombre',
+    'size' => 'Talla',
+    'brand' => 'Marca',
+    'price' => 'Precio',
+    'exclusive' => 'Exclusivo',
+    'image' => 'Imagen',
+    'description' => 'Descripción',
+    'color' => 'Color',
+    'discount' => 'Descuento',
+    'active' => 'Activo',
+    'stock' => 'Stock',
+    'category' => 'Categoría',
+    'actions' => 'Acciones',
+
+    'create_button' => 'Crear producto',
+    'save_button' => 'Guardar',
+    'update_button' => 'Actualizar',
+    'edit_button' => 'Editar',
+    'delete_button' => 'Eliminar',
+    'back_button' => 'Volver',
+
+    'empty' => 'No hay productos registrados.',
+    'created_successfully' => 'Producto creado correctamente.',
+    'updated_successfully' => 'Producto actualizado correctamente.',
+    'deleted_successfully' => 'Producto eliminado correctamente.',
+
+    'index_title' => 'Nuestros Productos',
+    'show_title' => 'Detalle del Producto',
+    'in_stock' => 'En Stock',
+    'out_of_stock' => 'Agotado',
+    'no_image' => 'Imagen no disponible',
+    'add_to_cart' => 'Agregar al Carrito',
+    'view_details' => 'Ver Detalles',
+    'write_review' => 'Escribir una Reseña',
+    'login_to_review' => 'Inicia sesión para escribir una reseña',
+    'reviews' => 'Reseñas',
+    'no_products' => 'No hay productos disponibles en este momento',
+];

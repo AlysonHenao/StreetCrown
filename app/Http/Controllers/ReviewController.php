@@ -1,8 +1,36 @@
 <?php
+// Author: Samuel Moncada Mejía
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReviewRequest;
+use App\Models\Product;
+use App\Models\Review;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
+
 class ReviewController extends Controller
 {
-    //
+    public function create(Product $product): View
+    {
+        $viewData = [
+            'product' => $product,
+            'title' => __('review.create_title'),
+        ];
+
+        return view('reviews.create', ['viewData' => $viewData]);
+    }
+
+    public function store(ReviewRequest $request, Product $product): RedirectResponse
+    {
+        $validated = $request->validated();
+        $validated['user_id'] = Auth::id();
+        $validated['product_id'] = $product->getId();
+
+        Review::create($validated);
+
+        return redirect()->route('product.show', $product->getId())
+            ->with('success', __('review.created_successfully'));
+    }
 }
