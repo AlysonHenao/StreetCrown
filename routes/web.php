@@ -4,6 +4,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home.index');
+Route::get('/products', 'App\Http\Controllers\ProductController@index')->name('product.index');
+Route::get('/products/{product}', 'App\Http\Controllers\ProductController@show')->name('product.show');
 Route::middleware('guest')->group(function () {
     Route::get('/login', 'App\Http\Controllers\AuthController@showLogin')->name('login');
     Route::post('/login', 'App\Http\Controllers\AuthController@login');
@@ -13,7 +15,10 @@ Route::middleware('guest')->group(function () {
 });
 Route::middleware('auth')->group(function () {
     Route::post('/logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
+    Route::get('/products/{product}/reviews/create', 'App\Http\Controllers\ReviewController@create')->name('review.create');
+    Route::post('/products/{product}/reviews', 'App\Http\Controllers\ReviewController@store')->name('review.store');
 });
+
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/categories', 'App\Http\Controllers\Admin\CategoryController@index')->name('category.index');
     Route::get('/categories/create', 'App\Http\Controllers\Admin\CategoryController@create')->name('category.create');
