@@ -4,6 +4,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home.index');
+Route::get('/products', 'App\Http\Controllers\ProductController@index')->name('product.index');
+Route::get('/products/{product}', 'App\Http\Controllers\ProductController@show')->name('product.show');
 Route::middleware('guest')->group(function () {
     Route::get('/login', 'App\Http\Controllers\AuthController@showLogin')->name('login');
     Route::post('/login', 'App\Http\Controllers\AuthController@login');
@@ -13,8 +15,13 @@ Route::middleware('guest')->group(function () {
 });
 Route::middleware('auth')->group(function () {
     Route::post('/logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
+    Route::get('/products/{product}/reviews/create', 'App\Http\Controllers\ReviewController@create')->name('review.create');
+    Route::post('/products/{product}/reviews', 'App\Http\Controllers\ReviewController@store')->name('review.store');
 });
+
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', 'App\Http\Controllers\Admin\AdminController@index')->name('index');
+
     Route::get('/categories', 'App\Http\Controllers\Admin\CategoryController@index')->name('category.index');
     Route::get('/categories/create', 'App\Http\Controllers\Admin\CategoryController@create')->name('category.create');
     Route::post('/categories', 'App\Http\Controllers\Admin\CategoryController@store')->name('category.store');
@@ -31,3 +38,11 @@ Route::delete('/cart', 'App\Http\Controllers\CartController@clear')->name('cart.
 Route::post('/orders', 'App\Http\Controllers\OrderController@store')->name('order.store')->middleware('auth');
 Route::get('/orders', 'App\Http\Controllers\OrderController@index')->name('order.index')->middleware('auth');
 Route::get('/orders/{id}', 'App\Http\Controllers\OrderController@show')->name('order.show')->middleware('auth');
+
+    Route::get('/products', 'App\Http\Controllers\Admin\ProductController@index')->name('product.index');
+    Route::get('/products/create', 'App\Http\Controllers\Admin\ProductController@create')->name('product.create');
+    Route::post('/products', 'App\Http\Controllers\Admin\ProductController@store')->name('product.store');
+    Route::get('/products/{id}/edit', 'App\Http\Controllers\Admin\ProductController@edit')->name('product.edit');
+    Route::put('/products/{id}', 'App\Http\Controllers\Admin\ProductController@update')->name('product.update');
+    Route::delete('/products/{id}', 'App\Http\Controllers\Admin\ProductController@destroy')->name('product.destroy');
+});

@@ -33,4 +33,14 @@ return [
     'throttle'                => 'Demasiados intentos. Por favor intenta de nuevo en :seconds segundos.',
 
     'unauthorized'             => 'No tienes permisos para acceder a esta sección.',
+    
+    'email_required'          => 'El email es requerido',
+    'email_invalid'           => 'El email no es válido',
+    'email_not_found'         => 'El email no existe en nuestros registros',
+    'email_unique'            => 'El email ya está registrado',
+    'password_required'       => 'La contraseña es requerida',
+    'password_min'            => 'La contraseña debe tener mínimo 8 caracteres',
+    'password_confirmed'      => 'Las contraseñas no coinciden',
+    'name_required'           => 'El nombre es requerido',
+    'name_string'             => 'El nombre debe ser texto',
 ];

@@ -1,7 +1,6 @@
 <?php
 // Author: Samuel Moncada Mejía
 
-use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -15,7 +14,6 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'admin' => EnsureUserIsAdmin::class,
             'guest' => RedirectIfAuthenticated::class,
         ]);
     })
