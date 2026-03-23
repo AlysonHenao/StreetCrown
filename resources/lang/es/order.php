@@ -1,0 +1,38 @@
+<?php
+// Author: Samuel Moncada Mejía
+
+return [
+    'index_title' => 'Mis Pedidos',
+    'show_title' => 'Detalle del Pedido',
+    'no_orders' => 'No tienes pedidos registrados. ¡Realiza tu primer compra!',
+    'order_id' => 'ID del Pedido',
+    'date' => 'Fecha',
+    'total' => 'Total',
+    'status' => 'Estado',
+    'payment_method' => 'Método de Pago',
+    'actions' => 'Acciones',
+    'view' => 'Ver Detalle',
+    'status_pending' => 'Pendiente',
+    'status_completed' => 'Completado',
+    'status_cancelled' => 'Cancelado',
+    'order_details' => 'Detalles del Pedido',
+    'items' => 'Artículos del Pedido',
+    'product' => 'Producto',
+    'quantity' => 'Cantidad',
+    'price' => 'Precio',
+    'subtotal' => 'Subtotal',
+    'order_summary' => 'Resumen del Pedido',
+    'created_at' => 'Creado el',
+    'back_to_orders' => 'Volver a Mis Pedidos',
+    
+    'total_required' => 'El total es requerido',
+    'total_integer' => 'El total debe ser un número entero',
+    'total_min' => 'El total debe ser mayor a 0',
+    'payment_method_required' => 'El método de pago es requerido',
+    'payment_method_invalid' => 'El método de pago no es válido',
+    'date_required' => 'La fecha es requerida',
+    'date_invalid' => 'La fecha debe ser válida',
+    'status_required' => 'El estado es requerido',
+    'status_invalid' => 'El estado no es válido',
+    'created_successfully' => 'Pedido creado exitosamente.',
+];
