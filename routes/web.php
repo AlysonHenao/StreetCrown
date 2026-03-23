@@ -14,7 +14,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
 });
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/categories', 'App\Http\Controllers\Admin\CategoryController@index')->name('category.index');
     Route::get('/categories/create', 'App\Http\Controllers\Admin\CategoryController@create')->name('category.create');
     Route::post('/categories', 'App\Http\Controllers\Admin\CategoryController@store')->name('category.store');
