@@ -26,8 +26,8 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-     public const ROLE_ADMIN = 'admin';
-     public const ROLE_USER = 'user';
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_USER = 'user';
 
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -66,7 +66,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
     public function getId(): int
     {
         return $this->attributes['id'];
@@ -102,21 +101,6 @@ class User extends Authenticatable
         $this->attributes['password'] = $password;
     }
 
-    public function getRole(): string
-    {
-        return $this->attributes['role'] ?? self::ROLE_USER;
-    }
-
-    public function setRole(string $role): void
-    {
-        $this->attributes['role'] = $role;
-    }
-
-    public function getEmailVerifiedAt(): ?string
-    {
-        return $this->attributes['email_verified_at'];
-    }
-
     public function getCreatedAt(): string
     {
         return $this->attributes['created_at'];
@@ -127,13 +111,13 @@ class User extends Authenticatable
         return $this->attributes['updated_at'];
     }
 
-    public function reviews(): HasMany
+    public function orders(): HasMany
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Order::class);
     }
 
-    public function getReviews(): Collection
+    public function getOrders(): Collection
     {
-        return $this->reviews;
+        return $this->orders;
     }
 }
