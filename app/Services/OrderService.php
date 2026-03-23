@@ -7,6 +7,7 @@ use App\Contracts\CartServiceInterface;
 use App\Contracts\OrderServiceInterface;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -26,7 +27,7 @@ class OrderService implements OrderServiceInterface
 
         if (count($cart) === 0) {
             throw ValidationException::withMessages([
-                'cart' => 'No puedes crear una orden con el carrito vacio.',
+                'cart' => __('order.cart_empty'),
             ]);
         }
 
@@ -43,12 +44,18 @@ class OrderService implements OrderServiceInterface
 
             $total = 0;
 
-            foreach ($cart as $cartItem) {
+            foreach ($cart as $productId => $quantity) {
+                $product = Product::find((int) $productId);
+
+                if (! $product || (int) $quantity <= 0) {
+                    continue;
+                }
+
                 $item = new Item();
-                $item->setQuantity((int) $cartItem['quantity']);
-                $item->setPrice((int) $cartItem['price']);
+                $item->setQuantity((int) $quantity);
+                $item->setPrice($product->getPrice());
                 $item->setOrderId($order->getId());
-                $item->setProductId((int) $cartItem['product_id']);
+                $item->setProductId((int) $productId);
                 $item->save();
 
                 $total += $item->calculateSubTotal();
@@ -57,7 +64,7 @@ class OrderService implements OrderServiceInterface
             $order->setTotal($total);
             $order->save();
 
-            $this->cartService->clearCart();
+            $this->cartService->clear();
 
             return $order;
         });

@@ -23,11 +23,11 @@ class AddToCartRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'product_id.required' => 'El producto es requerido.',
-            'product_id.integer' => 'El producto debe ser un ID valido.',
-            'product_id.exists' => 'El producto seleccionado no existe.',
-            'quantity.integer' => 'La cantidad debe ser un numero entero.',
-            'quantity.min' => 'La cantidad debe ser mayor o igual a 1.',
+            'product_id.required' => __('validation.product_required'),
+            'product_id.integer' => __('validation.product_integer'),
+            'product_id.exists' => __('validation.product_exists'),
+            'quantity.integer' => __('validation.quantity_integer'),
+            'quantity.min' => __('validation.quantity_min'),
         ];
     }
 }

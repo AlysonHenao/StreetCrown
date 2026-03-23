@@ -4,18 +4,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\CartServiceInterface;
 use App\Http\Requests\AddToCartRequest;
 use App\Http\Requests\RemoveFromCartRequest;
 use App\Http\Requests\UpdateCartItemRequest;
 use App\Models\Item;
 use App\Models\Product;
-use App\Services\CartService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CartController extends Controller
 {
-    public function __construct(private readonly CartService $cartService) {}
+    public function __construct(private readonly CartServiceInterface $cartService) {}
 
     public function index(): View
     {
@@ -23,12 +23,11 @@ class CartController extends Controller
 
         $viewData = [];
         $viewData['title'] = __('order.cart_title');
-        $viewData['isCartView'] = true;
         $viewData['cartItems'] = $cartItems;
         $viewData['totalQuantity'] = $cartItems->sum(fn(Item $item) => $item->getQuantity());
         $viewData['totalAmount'] = $cartItems->sum(fn(Item $item) => $item->calculateSubTotal());
 
-        return view('home.index', ['viewData' => $viewData]);
+        return view('cart.index', ['viewData' => $viewData]);
     }
 
     public function add(AddToCartRequest $request): RedirectResponse

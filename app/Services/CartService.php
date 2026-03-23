@@ -4,12 +4,13 @@
 
 namespace App\Services;
 
+use App\Contracts\CartServiceInterface;
 use App\Models\Item;
 use App\Models\Product;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 
-class CartService
+class CartService implements CartServiceInterface
 {
     private const CART_KEY = 'shopping_cart';
 

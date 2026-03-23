@@ -29,9 +29,9 @@ class RemoveFromCartRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'product_id.required' => 'El producto es requerido.',
-            'product_id.integer' => 'El producto debe ser un ID valido.',
-            'product_id.exists' => 'El producto seleccionado no existe.',
+            'product_id.required' => __('validation.product_required'),
+            'product_id.integer' => __('validation.product_integer'),
+            'product_id.exists' => __('validation.product_exists'),
         ];
     }
 }

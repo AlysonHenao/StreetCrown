@@ -6,86 +6,6 @@
 @section('subtitle', __('layout.app_subtitle'))
 
 @section('content')
-@if(!empty($viewData['isCartView']))
-<div class="row">
-    <div class="col-md-12">
-        <h2 class="mb-4">{{ __('order.cart_title') }}</h2>
-
-        @if($viewData['cartItems']->isEmpty())
-        <div class="alert alert-info" role="alert">{{ __('order.cart_empty') }}</div>
-        @else
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>{{ __('order.product') }}</th>
-                        <th>{{ __('order.price') }}</th>
-                        <th>{{ __('order.quantity') }}</th>
-                        <th>{{ __('order.subtotal') }}</th>
-                        <th>{{ __('order.actions') }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($viewData['cartItems'] as $cartItem)
-                    <tr>
-                        <td>{{ $cartItem->getProduct()->getName() }}</td>
-                        <td>{{ number_format($cartItem->getPrice(), 0, ',', '.') }} COP</td>
-                        <td>
-                            <form method="POST" action="{{ route('cart.update', $cartItem->getProductId()) }}" class="d-flex gap-2">
-                                @csrf
-                                @method('PUT')
-                                <input
-                                    type="number"
-                                    name="quantity"
-                                    min="0"
-                                    max="{{ $cartItem->getProduct()->getStock() }}"
-                                    value="{{ $cartItem->getQuantity() }}"
-                                    class="form-control">
-                                <button type="submit" class="btn btn-sm btn-primary">{{ __('order.update') }}</button>
-                            </form>
-                        </td>
-                        <td>{{ number_format($cartItem->calculateSubTotal(), 0, ',', '.') }} COP</td>
-                        <td>
-                            <form method="POST" action="{{ route('cart.remove', $cartItem->getProductId()) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">{{ __('order.remove') }}</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-        <div class="mb-3">
-            <strong>{{ __('order.total_items') }}:</strong> {{ $viewData['totalQuantity'] }}
-            <br>
-            <strong>{{ __('order.total') }}:</strong> {{ number_format($viewData['totalAmount'], 0, ',', '.') }} COP
-        </div>
-
-        <div class="d-flex flex-column gap-2">
-            <form method="POST" action="{{ route('cart.clear') }}">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-outline-danger">{{ __('order.clear_cart') }}</button>
-            </form>
-
-            <form method="POST" action="{{ route('order.store') }}" class="d-flex gap-2 align-items-center">
-                @csrf
-                <label for="payment_method" class="form-label mb-0">{{ __('order.payment_method') }}</label>
-                <select id="payment_method" name="payment_method" class="form-select">
-                    <option value="cash">{{ __('order.payment_cash') }}</option>
-                    <option value="card">{{ __('order.payment_card') }}</option>
-                    <option value="transfer">{{ __('order.payment_transfer') }}</option>
-                </select>
-                <button type="submit" class="btn btn-success">{{ __('order.place_order') }}</button>
-            </form>
-        </div>
-        @endif
-    </div>
-</div>
-@else
 <div class="text-center py-5">
     <h1 class="display-5 fw-bold mb-3">{{ __('layout.brand') }}</h1>
     <p class="lead text-muted mb-4">{{ __('layout.welcome_lead') }}</p>
@@ -142,5 +62,4 @@
     </div>
     @endif
 </div>
-@endif
 @endsection

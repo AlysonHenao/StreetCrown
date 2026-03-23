@@ -3,19 +3,20 @@
 
 namespace App\Contracts;
 
+use App\Models\Product;
+use Illuminate\Support\Collection;
+
 interface CartServiceInterface
 {
     public function getCart(): array;
 
-    public function addProduct(int $productId, int $quantity): void;
+    public function addProduct(Product $product, int $requestedQuantity): void;
 
-    public function updateProduct(int $productId, int $quantity): void;
+    public function updateProductQuantity(Product $product, int $quantity): void;
 
     public function removeProduct(int $productId): void;
 
-    public function clearCart(): void;
+    public function clear(): void;
 
-    public function getTotalQuantity(): int;
-
-    public function getTotalAmount(): int;
+    public function buildCartItems(): Collection;
 }

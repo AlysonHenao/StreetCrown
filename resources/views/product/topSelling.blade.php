@@ -18,16 +18,16 @@
                     alt="{{ $product->getName() }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ $product->getName() }}</h5>
-                    <p class="card-text"><strong>Brand:</strong> {{ $product->getBrand() }}</p>
-                    <p class="card-text"><strong>Price:</strong> ${{ $product->getPrice() }}</p>
-                    <p class="card-text"><strong>Units sold:</strong> {{ $product->sold_quantity }}</p>
+                    <p class="card-text"><strong>{{ __('product.brand') }}:</strong> {{ $product->getBrand() }}</p>
+                    <p class="card-text"><strong>{{ __('product.price') }}:</strong> ${{ $product->getPrice() }}</p>
+                    <p class="card-text"><strong>{{ __('product.units_sold') }}:</strong> {{ $product->sold_quantity }}</p>
                 </div>
             </div>
         </div>
         @endforeach
     </div>
     @else
-    <p>No sales have been registered yet.</p>
+    <p>{{ __('product.top_selling_empty') }}</p>
     @endif
 </div>
 @endsection
