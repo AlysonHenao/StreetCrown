@@ -56,6 +56,19 @@
         @method('DELETE')
         <button type="submit" class="btn btn-warning">Clear cart</button>
     </form>
+
+    <form action="{{ route('order.store') }}" method="POST">
+        @csrf
+        <div class="mb-3">
+            <label for="payment_method" class="form-label">Payment method</label>
+            <select name="payment_method" id="payment_method" class="form-control">
+                <option value="cash">Cash</option>
+                <option value="card">Card</option>
+                <option value="transfer">Transfer</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Place order</button>
+    </form>
     @else
     <p>Your cart is empty.</p>
     @endif

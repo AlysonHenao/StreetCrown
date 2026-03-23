@@ -28,3 +28,6 @@ Route::post('/cart/add', 'App\Http\Controllers\CartController@add')->name('cart.
 Route::put('/cart/{productId}', 'App\Http\Controllers\CartController@update')->name('cart.update');
 Route::delete('/cart/{productId}', 'App\Http\Controllers\CartController@remove')->name('cart.remove');
 Route::delete('/cart', 'App\Http\Controllers\CartController@clear')->name('cart.clear');
+Route::post('/orders', 'App\Http\Controllers\OrderController@store')->name('order.store')->middleware('auth');
+Route::get('/orders', 'App\Http\Controllers\OrderController@index')->name('order.index')->middleware('auth');
+Route::get('/orders/{id}', 'App\Http\Controllers\OrderController@show')->name('order.show')->middleware('auth');
