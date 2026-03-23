@@ -1,50 +1,65 @@
 <?php
-// Author: Samuel Moncada Mejía
+// Author: Emmanuel Cortes, Samuel Moncada Mejía
 
 namespace App\Http\Controllers;
 
+use App\Contracts\OrderServiceInterface;
 use App\Http\Requests\StoreOrderRequest;
 use App\Models\Order;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class OrderController extends Controller
 {
     use AuthorizesRequests;
 
+    private OrderServiceInterface $orderService;
+
+    public function __construct(OrderServiceInterface $orderService)
+    {
+        $this->orderService = $orderService;
+    }
+
     public function index(): View
     {
         $user = Auth::user();
-        $viewData = [
-            'orders' => $user->orders,
-            'title' => __('order.index_title'),
-        ];
 
-        return view('orders.index', ['viewData' => $viewData]);
+        $viewData = [];
+        $viewData['title'] = __('order.index_title');
+        $viewData['orders'] = Order::with('items.product')
+            ->where('user_id', $user->getId())
+            ->orderByDesc('id')
+            ->get();
+
+        return view('order.index')->with('viewData', $viewData);
     }
 
-    public function show(Order $order): View
+    public function show(int $id): View
     {
-        $this->authorize('view', $order);
+        $user = Auth::user();
 
-        $viewData = [
-            'order' => $order,
-            'title' => __('order.show_title'),
-        ];
+        $order = Order::with('items.product')->findOrFail($id);
 
-        return view('orders.show', ['viewData' => $viewData]);
+        abort_if($order->getUserId() !== $user->getId(), 403);
+
+        $viewData = [];
+        $viewData['title'] = __('order.show_title');
+        $viewData['order'] = $order;
+
+        return view('order.show')->with('viewData', $viewData);
     }
 
     public function store(StoreOrderRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-        $validated['user_id'] = Auth::id();
+        $paymentMethod = $request->validated('payment_method');
+        $user = Auth::user();
 
-        Order::create($validated);
+        $order = $this->orderService->createFromCart($user, $paymentMethod);
 
-        return redirect()->route('order.index')
+        return redirect()
+            ->route('order.show', $order->getId())
             ->with('success', __('order.created_successfully'));
     }
 }
