@@ -1,5 +1,5 @@
 <?php
-// Author: Samuel Moncada Mejía
+// Author: Samuel Moncada Mejía, Alyson Henao
 
 return [
     'app_title' => 'StreetCrown',

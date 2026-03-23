@@ -22,9 +22,11 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('admin.product.index') }}">
-                {{ __('layout.admin_brand') }}
-            </a>
+            @if(Route::has('admin.product.index'))
+                <a class="navbar-brand" href="{{ route('admin.product.index') }}">
+                    {{ __('layout.admin_brand') }}
+                </a>
+            @endif
 
             <button
                 class="navbar-toggler"
