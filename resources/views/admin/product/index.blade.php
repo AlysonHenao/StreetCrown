@@ -41,7 +41,7 @@
                                 <td>{{ $product->getId() }}</td>
                                 <td>{{ $product->getName() }}</td>
                                 <td>{{ $product->getBrand() }}</td>
-                                <td>${{ number_format($product->getPrice(), 0, ',', '.') }}</td>
+                                <td>{{ number_format($product->getPrice(), 0, ',', '.') }} COP</td>
                                 <td>{{ $product->getCategory()->getName() }}</td>
                                 <td>{{ $product->getExclusive() ? 'Sí' : 'No' }}</td>
                                 <td>{{ $product->getActive() ? 'Sí' : 'No' }}</td>
