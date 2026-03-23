@@ -1,4 +1,4 @@
-{{-- Author: Alyson Henao --}}
+{{-- Author: Emmanuel Cortes --}}
 @extends('layouts.app')
 
 @section('title', $viewData['title'])
