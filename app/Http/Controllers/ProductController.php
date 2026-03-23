@@ -31,12 +31,4 @@ class ProductController extends Controller
 
         return view('products.show', ['viewData' => $viewData]);
     }
-    public function topSelling(): View
-    {
-        $viewData = [];
-        $viewData['title'] = 'Top Selling Products';
-        $viewData['products'] = Product::getTopSellingProducts(3);
-
-        return view('product.topSelling')->with('viewData', $viewData);
-    }
 }
