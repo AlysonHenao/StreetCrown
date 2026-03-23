@@ -1,5 +1,5 @@
 <?php
-// Author: Alyson Henao
+// Author: Alyson Henao, Samuel Moncada Mejía
 
 return [
     'dashboard_title' => 'Panel Administrativo',
@@ -24,4 +24,5 @@ return [
     'total_categories' => 'Categorías totales',
     'active_products' => 'Productos activos',
     'exclusive_products' => 'Productos exclusivos',
+    'access_denied' => 'No tienes permiso para acceder al panel administrativo.',
 ];
