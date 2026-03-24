@@ -123,6 +123,11 @@ class OrderController extends Controller
                 $item->setPrice($product->getPrice());
                 $item->save();
 
+                // Decrease product stock
+                $newStock = max(0, $product->getStock() - (int) $quantity);
+                $product->setStock($newStock);
+                $product->save();
+
                 $total += $item->calculateSubTotal();
             }
 
