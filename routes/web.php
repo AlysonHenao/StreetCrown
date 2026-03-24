@@ -46,6 +46,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/users', 'App\Http\Controllers\Admin\UserController@index')->name('user.index');
     Route::get('/users/{id}/edit', 'App\Http\Controllers\Admin\UserController@edit')->name('user.edit');
     Route::put('/users/{id}', 'App\Http\Controllers\Admin\UserController@update')->name('user.update');
+
+    Route::get('/orders', 'App\Http\Controllers\Admin\OrderController@index')->name('order.index');
+    Route::get('/orders/{id}/edit', 'App\Http\Controllers\Admin\OrderController@edit')->name('order.edit');
+    Route::put('/orders/{id}', 'App\Http\Controllers\Admin\OrderController@update')->name('order.update');
 });
 
 Route::get('/cart', 'App\Http\Controllers\CartController@index')->name('cart.index');
