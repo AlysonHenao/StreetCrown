@@ -1,4 +1,4 @@
-{{-- Author: Samuel Moncada Mejía --}}
+{{-- Author: Samuel Moncada Mejía, Alyson Henao --}}
 
 @extends('layouts.app')
 
@@ -6,6 +6,62 @@
 @section('subtitle', $viewData['title'])
 
 @section('content')
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <form method="GET" action="{{ route('product.index') }}" class="row g-3">
+
+            <div class="col-md-5">
+                <input
+                    type="text"
+                    name="search"
+                    class="form-control"
+                    placeholder="{{ __('product.search_placeholder') }}"
+                    value="{{ $viewData['search'] ?? '' }}"
+                >
+            </div>
+
+            <div class="col-md-3">
+                <select name="category" class="form-select">
+                    <option value="">{{ __('product.all_categories') }}</option>
+                    @foreach($viewData['categories'] ?? [] as $category)
+                        <option
+                            value="{{ $category->getId() }}"
+                            {{ (string)($viewData['selectedCategory'] ?? '') === (string)$category->getId() ? 'selected' : '' }}
+                        >
+                            {{ $category->getName() }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <select name="exclusive" class="form-select">
+                    <option value="">{{ __('product.all_products') }}</option>
+                    <option value="1" {{ ($viewData['selectedExclusive'] ?? '') === '1' ? 'selected' : '' }}>
+                        {{ __('product.exclusive_only') }}
+                    </option>
+                    <option value="0" {{ ($viewData['selectedExclusive'] ?? '') === '0' ? 'selected' : '' }}>
+                        {{ __('product.non_exclusive_only') }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn btn-primary w-100">
+                    {{ __('product.search') }}
+                </button>
+            </div>
+
+            <div class="col-12">
+                <a href="{{ route('product.index') }}" class="btn btn-outline-secondary">
+                    {{ __('product.clear_button') }}
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
 @if($viewData['products']->count() > 0)
     <div class="row g-3">
         @foreach($viewData['products'] as $product)
