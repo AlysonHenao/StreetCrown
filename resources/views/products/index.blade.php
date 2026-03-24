@@ -1,4 +1,4 @@
-{{-- Author: Samuel Moncada Mejía --}}
+{{-- Author: Samuel Moncada Mejía, Alyson Henao --}}
 
 @extends('layouts.app')
 
