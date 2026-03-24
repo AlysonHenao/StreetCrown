@@ -95,6 +95,21 @@
                     </button>
                 @endif
 
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.875rem; margin-top: 0.875rem;">
+                    @auth
+                        <form action="{{ route('wishlist.add', $viewData['product']->getId()) }}" method="POST" style="width: 100%;">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-secondary w-100">
+                                ❤ {{ __('product.add_to_wishlist') }}
+                            </button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-outline-secondary w-100">
+                            ❤ {{ __('product.add_to_wishlist') }}
+                        </a>
+                    @endauth
+                </div>
+
                 <hr class="product-detail-divider">
 
                 @auth

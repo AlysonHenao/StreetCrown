@@ -20,6 +20,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/products/{product}/reviews/create', 'App\Http\Controllers\ReviewController@create')->name('review.create');
     Route::post('/products/{product}/reviews', 'App\Http\Controllers\ReviewController@store')->name('review.store');
 
+    Route::get('/wishlist', 'App\Http\Controllers\WishlistController@index')->name('wishlist.index');
+    Route::post('/wishlist/add/{product}', 'App\Http\Controllers\WishlistController@add')->name('wishlist.add');
+    Route::delete('/wishlist/{product}', 'App\Http\Controllers\WishlistController@remove')->name('wishlist.remove');
+    Route::delete('/wishlist', 'App\Http\Controllers\WishlistController@clear')->name('wishlist.clear');
+
     Route::get('/orders', 'App\Http\Controllers\OrderController@index')->name('order.index');
     Route::get('/orders/checkout', 'App\Http\Controllers\OrderController@checkout')->name('order.checkout');
     Route::get('/orders/{order}', 'App\Http\Controllers\OrderController@show')->name('order.show');

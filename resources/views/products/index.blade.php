@@ -10,7 +10,7 @@
     <div class="row g-3">
         @foreach($viewData['products'] as $product)
         <div class="col-6 col-md-4 col-lg-3">
-            <div class="product-card" style="height: 100%;">
+            <div class="product-card" style="height: 100%; position: relative;">
                 <div class="product-img-wrap">
                     @if($product->getImage())
                         <img src="{{ asset('images/products/' . $product->getImage()) }}" alt="{{ $product->getName() }}">
@@ -22,6 +22,19 @@
                     @if($product->getExclusive())
                         <span class="badge-exclusive">Exclusivo</span>
                     @endif
+                    {{-- Wishlist Button --}}
+                    @auth
+                        <form action="{{ route('wishlist.add', $product->getId()) }}" method="POST" style="position: absolute; top: 0.5rem; right: 0.5rem;">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-light" style="border-radius: 50%; width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                                ❤
+                            </button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-sm btn-light" style="position: absolute; top: 0.5rem; right: 0.5rem; border-radius: 50%; width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                            ❤
+                        </a>
+                    @endauth
                 </div>
                 <div class="product-body">
                     <div class="product-brand">{{ $product->getBrand() }}</div>

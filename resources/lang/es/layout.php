@@ -16,6 +16,7 @@ return [
     'home' => 'Inicio',
     'products' => 'Productos',
     'cart' => 'Carrito',
+    'wishlist' => 'Deseos',
     'login' => 'Iniciar sesión',
     'register' => 'Registrarse',
     'logout' => 'Cerrar sesión',

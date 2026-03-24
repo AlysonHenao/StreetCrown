@@ -42,6 +42,7 @@ return [
     'out_of_stock' => 'Agotado',
     'no_image' => 'Imagen no disponible',
     'add_to_cart' => 'Agregar al Carrito',
+    'add_to_wishlist' => 'Agregar a Favoritos',
     'quantity' => 'Cantidad',
     'view_details' => 'Ver Detalles',
     'write_review' => 'Escribir una Reseña',

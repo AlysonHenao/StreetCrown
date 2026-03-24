@@ -37,6 +37,10 @@
                     @endif
 
                     @auth
+                        @if(Route::has('wishlist.index'))
+                            <a class="nav-link" href="{{ route('wishlist.index') }}">{{ __('layout.wishlist') }}</a>
+                        @endif
+
                         @if(Route::has('order.index'))
                             <a class="nav-link" href="{{ route('order.index') }}">{{ __('layout.orders') }}</a>
                         @endif

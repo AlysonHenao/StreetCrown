@@ -187,6 +187,11 @@ class Product extends Model
         return $this->hasMany(Item::class);
     }
 
+    public function wishlist(): HasMany
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
     public function getCategory(): Category
     {
         return $this->category;
