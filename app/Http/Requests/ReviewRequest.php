@@ -1,4 +1,5 @@
 <?php
+
 // Author: Samuel Moncada Mejía
 
 namespace App\Http\Requests;

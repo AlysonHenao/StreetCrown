@@ -1,4 +1,5 @@
 <?php
+
 // Author: Alyson Henao
 
 return [
@@ -24,7 +25,7 @@ return [
     'updated_successfully' => 'Categoria actualizada exitosamente.',
     'deleted_successfully' => 'Categoria eliminada exitosamente.',
     'delete_blocked' => 'Esta categoria no puede ser eliminada porque está asociada a un producto.',
-    
+
     'name_required' => 'El nombre es requerido',
     'name_string' => 'El nombre debe ser texto',
     'name_unique' => 'Este nombre ya existe',

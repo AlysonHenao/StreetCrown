@@ -1,4 +1,5 @@
 <?php
+
 // Author: Samuel Moncada Mejía
 
 namespace App\Http\Requests;
@@ -23,9 +24,9 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'El correo electrónico es requerido.',
-            'email.email' => 'El correo electrónico debe ser válido.',
-            'password.required' => 'La contraseña es requerida.',
+            'email.required' => __('validation.email_required'),
+            'email.email' => __('validation.email_invalid'),
+            'password.required' => __('validation.password_required'),
         ];
     }
 }

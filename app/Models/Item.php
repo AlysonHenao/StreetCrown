@@ -1,4 +1,5 @@
 <?php
+
 // Author: Emmanuel Cortes
 
 namespace App\Models;

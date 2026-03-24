@@ -1,11 +1,12 @@
 <?php
+
 // Author: Samuel Moncada Mejía
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\User;
 
 class CheckAdmin
 {

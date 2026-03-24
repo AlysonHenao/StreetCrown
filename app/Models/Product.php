@@ -1,5 +1,6 @@
 <?php
-// Author: Alyson Henao
+
+// Author: Alyson Henao, Emmanuel Cortes
 
 namespace App\Models;
 
@@ -199,5 +200,21 @@ class Product extends Model
     public function getItems(): Collection
     {
         return $this->items;
+    }
+
+    public static function getTopSellingProducts(int $limit = 3): Collection
+    {
+        return self::query()
+            ->where('products.active', true)
+            ->withSum([
+                'items as sold_quantity' => function ($query) {
+                    $query->whereHas('order', function ($orderQuery) {
+                        $orderQuery->whereIn('status', ['placed', 'paid', 'completed']);
+                    });
+                },
+            ], 'quantity')
+            ->orderByDesc('sold_quantity')
+            ->limit($limit)
+            ->get();
     }
 }

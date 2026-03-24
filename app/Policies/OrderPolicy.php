@@ -1,4 +1,5 @@
 <?php
+
 // Author: Samuel Moncada Mejía
 
 namespace App\Policies;
@@ -8,7 +9,6 @@ use App\Models\User;
 
 class OrderPolicy
 {
-
     public function view(User $user, Order $order): bool
     {
         return $user->getId() === $order->getUserId();

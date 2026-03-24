@@ -1,5 +1,6 @@
 <?php
-// Author: Samuel Moncada Mejía
+
+// Author: Samuel Moncada Mejía, Emmanuel Cortes
 
 namespace App\Http\Controllers;
 
@@ -15,8 +16,10 @@ class ProductController extends Controller
             ->paginate(12);
 
         $viewData = [
-            'title' => 'Products',
+            'title' => __('product.index_title'),
             'products' => $products,
+            'showPagination' => true,
+            'showSoldQuantity' => false,
         ];
 
         return view('products.index', ['viewData' => $viewData]);
@@ -30,5 +33,17 @@ class ProductController extends Controller
         ];
 
         return view('products.show', ['viewData' => $viewData]);
+    }
+
+    public function topSelling(): View
+    {
+        $viewData = [
+            'title' => __('product.top_selling_title'),
+            'products' => Product::getTopSellingProducts(3),
+            'showPagination' => false,
+            'showSoldQuantity' => true,
+        ];
+
+        return view('products.index', ['viewData' => $viewData]);
     }
 }

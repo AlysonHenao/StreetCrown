@@ -1,4 +1,5 @@
 <?php
+
 // Author: Emmanuel Cortes
 
 namespace App\Models;
@@ -144,7 +145,7 @@ class Order extends Model
 
     public function generateInvoice(): string
     {
-        return 'INV-' . $this->getId();
+        return 'INV-'.$this->getId();
     }
 
     public function sendOrderConfirmation(): bool

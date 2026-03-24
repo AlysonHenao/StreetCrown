@@ -1,4 +1,5 @@
 <?php
+
 // Author: Emmanuel Cortes
 
 use Illuminate\Database\Migrations\Migration;

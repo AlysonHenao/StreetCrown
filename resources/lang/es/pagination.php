@@ -1,6 +1,8 @@
-<?php //Autor: Samuel Moncada Mejía
+<?php
+
+// Autor: Samuel Moncada Mejía
 
 return [
     'previous' => '&laquo; Anterior',
-    'next'     => 'Siguiente &raquo;',
+    'next' => 'Siguiente &raquo;',
 ];

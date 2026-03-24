@@ -7,3 +7,11 @@
 .btn svg {
     display: block;
 }
+
+.product-image-placeholder-md {
+    height: 250px;
+}
+
+.product-image-placeholder-lg {
+    height: 500px;
+}

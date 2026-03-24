@@ -1,4 +1,5 @@
 <?php
+
 // Author: Samuel Moncada Mejía
 
 namespace App\Http\Controllers;
@@ -50,10 +51,10 @@ class AuthController extends Controller
     public function register(RegisterRequest $request): RedirectResponse
     {
         $user = User::create([
-            'name'     => $request->input('name'),
-            'email'    => $request->input('email'),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
-            'role'     => User::ROLE_USER,
+            'role' => User::ROLE_USER,
         ]);
 
         Auth::login($user);
