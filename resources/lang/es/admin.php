@@ -26,4 +26,8 @@ return [
     'active_products' => 'Productos activos',
     'exclusive_products' => 'Productos exclusivos',
     'access_denied' => 'No tienes permiso para acceder al panel administrativo.',
+
+    'users_module' => 'Usuarios',
+    'users_description' => 'Consulta usuarios, filtra resultados y actualiza sus roles.',
+    'go_users' => 'Ir a usuarios',
 ];

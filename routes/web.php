@@ -42,6 +42,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/products/{id}/edit', 'App\Http\Controllers\Admin\ProductController@edit')->name('product.edit');
     Route::put('/products/{id}', 'App\Http\Controllers\Admin\ProductController@update')->name('product.update');
     Route::delete('/products/{id}', 'App\Http\Controllers\Admin\ProductController@destroy')->name('product.destroy');
+
+    Route::get('/users', 'App\Http\Controllers\Admin\UserController@index')->name('user.index');
+    Route::get('/users/{id}/edit', 'App\Http\Controllers\Admin\UserController@edit')->name('user.edit');
+    Route::put('/users/{id}', 'App\Http\Controllers\Admin\UserController@update')->name('user.update');
 });
 
 Route::get('/cart', 'App\Http\Controllers\CartController@index')->name('cart.index');

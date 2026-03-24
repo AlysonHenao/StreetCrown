@@ -40,6 +40,9 @@
                     @if(Route::has('admin.order.index'))
                         <a class="nav-link" href="{{ route('admin.order.index') }}">{{ __('layout.admin_orders') }}</a>
                     @endif
+                    @if(Route::has('admin.user.index'))
+                        <a class="nav-link" href="{{ route('admin.user.index') }}">{{ __('layout.admin_users') }}</a>
+                    @endif
                     @if(Route::has('home.index'))
                         <a class="nav-link" href="{{ route('home.index') }}">{{ __('layout.back_to_store') }}</a>
                     @endif

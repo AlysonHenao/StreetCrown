@@ -45,5 +45,13 @@
         <a href="{{ route('admin.order.index') }}" class="btn btn-primary">{{ __('admin.go_orders') }}</a>
     </div>
     @endif
+
+    @if(Route::has('admin.user.index'))
+    <div class="admin-module-item">
+        <div class="admin-module-title">{{ __('admin.users_module') }}</div>
+        <p class="admin-module-desc">{{ __('admin.users_description') }}</p>
+        <a href="{{ route('admin.user.index') }}" class="btn btn-primary">{{ __('admin.go_users') }}</a>
+    </div>
+    @endif
 </div>
 @endsection
