@@ -1,6 +1,6 @@
 <?php
 
-// Author: StreetCrown Team
+// Author: Samuel Moncada Mejía
 
 return [
     'product_required' => 'El producto es requerido.',

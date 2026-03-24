@@ -60,6 +60,8 @@ return [
     'id' => 'ID',
     'user' => 'Usuario',
     'email' => 'Correo',
+    'phone' => 'Teléfono',
+    'address' => 'Dirección',
     'total' => 'Total',
     'date' => 'Fecha',
     'status' => 'Estado',
@@ -79,6 +81,7 @@ return [
     'updated_successfully' => 'Estado del pedido actualizado correctamente.',
 
     'status_pending' => 'Pendiente',
+    'status_placed' => 'Pendiente',
     'status_paid' => 'Pagado',
     'status_shipped' => 'Enviado',
     'status_delivered' => 'Entregado',

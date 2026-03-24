@@ -122,7 +122,7 @@ class Order extends Model
 
     public function placeOrder(): void
     {
-        $this->setStatus('placed');
+        $this->setStatus('pending');
     }
 
     public function cancelOrder(): void

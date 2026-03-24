@@ -56,6 +56,8 @@
                             <th>{{ __('order.id') }}</th>
                             <th>{{ __('order.user') }}</th>
                             <th>{{ __('order.email') }}</th>
+                            <th>{{ __('order.phone') }}</th>
+                            <th>{{ __('order.address') }}</th>
                             <th>{{ __('order.total') }}</th>
                             <th>{{ __('order.status') }}</th>
                             <th>{{ __('order.payment_method') }}</th>
@@ -66,10 +68,40 @@
                         @foreach($viewData['orders'] as $order)
                             <tr>
                                 <td>{{ $order->getId() }}</td>
-                                <td>{{ $order->getUser()->getName() }} </td>
-                                <td>{{ $order->getUser()->getEmail() }}</td>
-                                <td>${{ number_format($order->getTotal(), 0, ',', '.') }}</td>
-                                <td>{{ __('order.status_' . $order->getStatus()) }}</td>
+                                <td>
+                                    @if($order->getUser())
+                                        {{ $order->getUser()->getName() }}
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($order->getUser())
+                                        {{ $order->getUser()->getEmail() }}
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($order->getUser()?->phone)
+                                        {{ $order->getUser()->phone }}
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($order->getUser()?->address)
+                                        {{ $order->getUser()->address }}, {{ $order->getUser()?->city }}
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </td>
+                                <td>{{ number_format($order->getTotal(), 0, ',', '.') }} COP</td>
+                                @php
+                                    $statusKey = $order->getStatus();
+                                    $statusTranslation = __('order.status_' . $statusKey);
+                                @endphp
+                                <td><span class="badge bg-info">{{ $statusTranslation }}</span></td>
                                 <td>{{ $order->getPaymentMethod() }}</td>
                                 <td>
                                     <a href="{{ route('admin.order.edit', ['id' => $order->getId()]) }}"
