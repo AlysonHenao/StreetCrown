@@ -30,6 +30,7 @@ return [
     'admin_products' => 'Productos',
     'admin_categories' => 'Categorías',
     'admin_orders' => 'Pedidos',
+    'admin_users' => 'Usuarios',
     'back_to_store' => 'Volver a la tienda',
 
     'footer_user' => 'StreetCrown - Sección usuario',

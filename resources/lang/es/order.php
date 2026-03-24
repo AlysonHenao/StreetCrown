@@ -51,4 +51,36 @@ return [
     'payment_cash' => 'Efectivo',
     'payment_card' => 'Tarjeta',
     'payment_transfer' => 'Transferencia',
+
+    'admin_list_title' => 'Pedidos - Panel Administrativo',
+    'admin_list_subtitle' => 'Gestión de pedidos',
+    'edit_title' => 'Editar pedido',
+    'edit_subtitle' => 'Modificar estado del pedido',
+
+    'id' => 'ID',
+    'user' => 'Usuario',
+    'email' => 'Correo',
+    'total' => 'Total',
+    'date' => 'Fecha',
+    'status' => 'Estado',
+    'payment_method' => 'Método de pago',
+    'actions' => 'Acciones',
+
+    'search' => 'Buscar',
+    'search_placeholder' => 'Buscar por ID, nombre o correo',
+    'filter_status' => 'Filtrar por estado',
+    'all_statuses' => 'Todos los estados',
+
+    'edit_button' => 'Editar',
+    'update_button' => 'Actualizar estado',
+    'back_button' => 'Volver',
+
+    'empty_admin' => 'No hay pedidos para esta búsqueda.',
+    'updated_successfully' => 'Estado del pedido actualizado correctamente.',
+
+    'status_pending' => 'Pendiente',
+    'status_paid' => 'Pagado',
+    'status_shipped' => 'Enviado',
+    'status_delivered' => 'Entregado',
+    'status_cancelled' => 'Cancelado',
 ];
