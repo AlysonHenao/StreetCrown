@@ -217,4 +217,17 @@ class Product extends Model
             ->limit($limit)
             ->get();
     }
+
+    public static function getTopRatedProducts(int $limit = 3)
+    {
+        return self::query()
+            ->with('category')
+            ->withAvg('reviews', 'rating')
+            ->where('active', true)
+            ->has('reviews')
+            ->orderByDesc('reviews_avg_rating')
+            ->orderByDesc('id')
+            ->limit($limit)
+            ->get();
+    }
 }
