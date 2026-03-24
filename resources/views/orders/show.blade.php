@@ -14,7 +14,7 @@
                 <div class="card-header bg-dark text-white">
                     <h5 class="mb-0">{{ __('order.order_details') }}</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-white">
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <p><strong>{{ __('order.date') }}:</strong> {{ $viewData['order']->getDate() }}</p>
@@ -81,7 +81,7 @@
                 <div class="card-header bg-dark text-white">
                     <h5 class="mb-0">{{ __('order.order_summary') }}</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-white">
                     <p><strong>{{ __('order.order_id') }}:</strong> #{{ $viewData['order']->getId() }}</p>
                     <p><strong>{{ __('order.created_at') }}:</strong> {{ $viewData['order']->getCreatedAt() }}</p>
                     <hr />
