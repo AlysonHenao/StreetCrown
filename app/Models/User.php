@@ -20,6 +20,10 @@ use Illuminate\Notifications\Notifiable;
  * $this->attributes['email_verified_at'] - timestamp - contains the email verification date
  * $this->attributes['password'] - string - contains the user password
  * $this->attributes['role'] - string - contains the user role
+ * $this->attributes['phone'] - string - contains the user phone number
+ * $this->attributes['address'] - string - contains the user address
+ * $this->attributes['city'] - string - contains the user city
+ * $this->attributes['postal_code'] - string - contains the user postal code
  * $this->attributes['remember_token'] - string - contains the remember token
  * $this->attributes['created_at'] - timestamp - contains user creation date
  * $this->attributes['updated_at'] - timestamp - contains user update date
@@ -45,6 +49,10 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'phone',
+        'address',
+        'city',
+        'postal_code',
     ];
 
     /**
@@ -128,6 +136,46 @@ class User extends Authenticatable
     public function getUpdatedAt(): string
     {
         return $this->attributes['updated_at'];
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->attributes['phone'] ?? null;
+    }
+
+    public function setPhone(?string $phone): void
+    {
+        $this->attributes['phone'] = $phone;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->attributes['address'] ?? null;
+    }
+
+    public function setAddress(?string $address): void
+    {
+        $this->attributes['address'] = $address;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->attributes['city'] ?? null;
+    }
+
+    public function setCity(?string $city): void
+    {
+        $this->attributes['city'] = $city;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->attributes['postal_code'] ?? null;
+    }
+
+    public function setPostalCode(?string $postalCode): void
+    {
+        $this->attributes['postal_code'] = $postalCode;
     }
 
     public function reviews(): HasMany

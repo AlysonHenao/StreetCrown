@@ -4,10 +4,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\CheckoutRequest;
+use App\Contracts\CartServiceInterface;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +22,8 @@ class OrderController extends Controller
     use AuthorizesRequests;
 
     private const CART_KEY = 'shopping_cart';
+
+    public function __construct(private readonly CartServiceInterface $cartService) {}
 
     public function index(): View
     {
@@ -49,7 +53,29 @@ class OrderController extends Controller
         return view('orders.show', ['viewData' => $viewData]);
     }
 
-    public function store(StoreOrderRequest $request): RedirectResponse
+    public function checkout(): View
+    {
+        $cart = Session::get(self::CART_KEY, []);
+
+        if (count($cart) === 0) {
+            return redirect()->route('cart.index')->with('error', __('order.cart_empty'))->view();
+        }
+
+        $cartItems = $this->cartService->buildCartItems();
+        $user = Auth::user();
+
+        $viewData = [
+            'title' => __('checkout.title'),
+            'cartItems' => $cartItems,
+            'totalQuantity' => $cartItems->sum(fn(Item $item) => $item->getQuantity()),
+            'totalAmount' => $cartItems->sum(fn(Item $item) => $item->calculateSubTotal()),
+            'user' => $user,
+        ];
+
+        return view('checkout.index', ['viewData' => $viewData]);
+    }
+
+    public function store(CheckoutRequest $request): RedirectResponse
     {
         $cart = Session::get(self::CART_KEY, []);
 
@@ -57,8 +83,20 @@ class OrderController extends Controller
             return redirect()->route('cart.index')->with('error', __('order.cart_empty'));
         }
 
-        $paymentMethod = (string) $request->validated('payment_method');
-        $authenticatedUserId = (int) Auth::id();
+        $validated = $request->validated();
+        $paymentMethod = (string) $validated['payment_method'];
+        /** @var User $authenticatedUser */
+        $authenticatedUser = Auth::user();
+
+        $authenticatedUser->setName($validated['name']);
+        $authenticatedUser->setEmail($validated['email']);
+        $authenticatedUser->setPhone($validated['phone']);
+        $authenticatedUser->setAddress($validated['address']);
+        $authenticatedUser->setCity($validated['city']);
+        $authenticatedUser->setPostalCode($validated['postal_code']);
+        $authenticatedUser->save();
+
+        $authenticatedUserId = (int) $authenticatedUser->getId();
 
         $order = DB::transaction(function () use ($cart, $paymentMethod, $authenticatedUserId) {
             $order = new Order;

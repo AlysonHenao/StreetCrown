@@ -61,16 +61,7 @@
         <button type="submit" class="btn btn-warning">{{ __('order.clear_cart') }}</button>
     </form>
 
-    <form action="{{ route('order.store') }}" method="POST" class="d-flex gap-2 align-items-center">
-        @csrf
-        <label for="payment_method" class="form-label mb-0">{{ __('order.payment_method') }}</label>
-        <select name="payment_method" id="payment_method" class="form-select">
-            <option value="cash">{{ __('order.payment_cash') }}</option>
-            <option value="card">{{ __('order.payment_card') }}</option>
-            <option value="transfer">{{ __('order.payment_transfer') }}</option>
-        </select>
-        <button type="submit" class="btn btn-success">{{ __('order.place_order') }}</button>
-    </form>
+    <a href="{{ route('order.checkout') }}" class="btn btn-success">{{ __('order.place_order') }}</a>
     @else
     <p>{{ __('order.cart_empty') }}</p>
     @endif
