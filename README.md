@@ -1,4 +1,4 @@
-# StreetCrown 🧢
+# StreetCrown 
 
 StreetCrown is a web application developed using Laravel, following the MVC architecture.
 It allows users to browse products, manage a shopping cart, place orders, and interact with features such as reviews and wishlist.
@@ -6,9 +6,9 @@ An administrative panel is also included for managing products, categories, orde
 
 ---
 
-## 📌 Features
+## Features
 
-### 👤 User
+### User
 
 * View product catalog
 * Filter and search products
@@ -17,19 +17,19 @@ An administrative panel is also included for managing products, categories, orde
 * Place orders
 * Leave reviews
 
-### 🔐 Authentication
+### Authentication
 
 * User registration and login
 * Session management
 
-### 🛒 Cart & Orders
+### Cart & Orders
 
 * Add, update, and remove products from cart
 * Checkout process
 * Order history
 * Order status tracking
 
-### 🛠 Admin Panel
+### Admin Panel
 
 * Manage products (CRUD)
 * Manage categories (CRUD)
@@ -38,7 +38,7 @@ An administrative panel is also included for managing products, categories, orde
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 The project follows:
 
@@ -49,20 +49,59 @@ The project follows:
 
 ---
 
-## 🗄 Database
+## Database
 
-The database is managed through:
+The database is managed using:
 
 * Laravel migrations
 * Factories and seeders for mock data
 
-Additionally, a SQL file with fictitious data has been included for evaluation purposes:
+Additionally, a SQL file with fictitious data has been included for evaluation:
 
-📁 `database/sql/fake_data_rows.sql`
+`database/sql/fake_data_rows.sql`
 
 ---
 
-## ⚙️ Installation
+## How to Set Up the Database
+
+You have **two options**:
+
+### Option 1: Use Laravel Migrations + Seeders
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+---
+
+### Option 2: Use the Provided SQL File
+
+1. Create an empty database in MySQL
+2. Open **phpMyAdmin** (or any SQL client)
+3. Import the file:
+
+```
+database/sql/fake_data_rows.sql
+```
+
+- Inserts pre-built fictitious data
+- Useful for evaluation without running seeders
+
+---
+
+## Important Notes About the Database
+
+* The SQL file contains **only fictitious data**
+* Data is designed to demonstrate:
+
+  * Products and categories
+  * Orders and items
+  * Relationships between entities
+* Foreign keys and relationships are consistent
+
+---
+
+## Installation
 
 ```bash
 git clone <repository-url>
@@ -78,15 +117,7 @@ php artisan serve
 
 ---
 
-## 🧪 Notes
-
-* All data included in the SQL file is fictitious.
-* Formatting logic (prices, totals, dates) is handled in the models.
-* Route parameters follow Laravel conventions (e.g., `{order}`, `{product}`).
-
----
-
-## 👩‍💻 Authors
+## Authors
 
 * Alyson Henao
 * Samuel Moncada Mejía
