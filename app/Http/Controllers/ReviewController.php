@@ -4,7 +4,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ReviewRequest;
+use App\Http\Requests\Review\ReviewRequest;
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\RedirectResponse;

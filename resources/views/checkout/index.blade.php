@@ -1,4 +1,5 @@
-{{-- Author: Emmanuel Cortes, Samuel Moncada Mejía--}}
+{{-- Author: Emmanuel Cortes, Samuel Moncada Mejía --}}
+
 @extends('layouts.app')
 
 @section('title', $viewData['title'])
@@ -25,8 +26,8 @@
                         <tr>
                             <td>{{ $cartItem->getProduct()->getName() }}</td>
                             <td>{{ $cartItem->getQuantity() }}</td>
-                            <td>{{ number_format($cartItem->getPrice(), 0, ',', '.') }} COP</td>
-                            <td>{{ number_format($cartItem->calculateSubTotal(), 0, ',', '.') }} COP</td>
+                            <td>{{ $cartItem->getFormattedPrice() }}</td>
+                            <td>{{ $cartItem->getFormattedSubTotal() }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -34,7 +35,7 @@
             </div>
             <div class="alert alert-info">
                 <p><strong>{{ __('order.total_items') }}:</strong> {{ $viewData['totalQuantity'] }}</p>
-                <p><strong>{{ __('order.total') }}:</strong> {{ number_format($viewData['totalAmount'], 0, ',', '.') }} COP</p>
+                <p><strong>{{ __('order.total') }}:</strong> {{ number_format($viewData['totalAmount'], 0, ',', '.') }} {{ __('product.currency') }}</p>
             </div>
         </div>
 

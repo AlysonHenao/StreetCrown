@@ -73,9 +73,9 @@
                             <div class="product-name">{{ $product->getName() }}</div>
 
                             <div class="product-footer">
-                                <span class="product-price">{{ number_format($product->getPrice(), 0, ',', '.') }} COP</span>
+                                <span class="product-price">{{ $product->getFormattedPrice() }}</span>
                                 <span style="font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-muted);">
-                                    {{ $product->sold_quantity ?? 0 }} {{ __('home.units_sold') }}
+                                    {{ $product->getSoldQuantity() }} {{ __('home.units_sold') }}
                                 </span>
                             </div>
 
@@ -126,10 +126,10 @@
                             <div class="product-name">{{ $product->getName() }}</div>
 
                             <div class="product-footer">
-                                <span class="product-price">{{ number_format($product->getPrice(), 0, ',', '.') }} COP</span>
+                                <span class="product-price">{{ $product->getFormattedPrice() }}</span>
                                 <span style="font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-muted);">
                                     {{ __('home.average_rating') }}:
-                                    {{ number_format($product->reviews_avg_rating, 1) }}/5
+                                    {{ $product->getFormattedAverageRating() }}/5
                                 </span>
                             </div>
 

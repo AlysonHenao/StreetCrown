@@ -19,7 +19,7 @@
                 @endif
 
                 <form method="POST"
-                      action="{{ route('admin.category.update', ['id' => $viewData['category']->getId()]) }}">
+                      action="{{ route('admin.category.update', ['category' => $viewData['category']->getId()]) }}">
                     @csrf
                     @method('PUT')
 

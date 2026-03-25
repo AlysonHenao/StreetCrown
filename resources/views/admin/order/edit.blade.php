@@ -18,7 +18,7 @@
                     </ul>
                 @endif
 
-                <form method="POST" action="{{ route('admin.order.update', ['id' => $viewData['order']->getId()]) }}">
+                <form method="POST" action="{{ route('admin.order.update', ['order' => $viewData['order']->getId()]) }}">
                     @csrf
                     @method('PUT')
 
@@ -57,7 +57,7 @@
                         <input
                             type="text"
                             class="form-control"
-                            value="${{ number_format($viewData['order']->getTotal(), 0, ',', '.') }}"
+                            value="{{ $viewData['order']->getFormattedTotal() }}"
                             disabled
                         >
                     </div>
@@ -86,7 +86,7 @@
 
                     @if($viewData['order']->getItems()->count() > 0)
                         <div class="mb-3">
-                            <label class="form-label">Items</label>
+                            <label class="form-label">{{ __('order.items') }}</label>
                             <ul class="list-group">
                                 @foreach($viewData['order']->getItems() as $item)
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -94,7 +94,7 @@
                                             {{ $item->getProduct()->getName() }} x {{ $item->getQuantity() }}
                                         </span>
                                         <span>
-                                            ${{ number_format($item->calculateSubTotal(), 0, ',', '.') }}
+                                            {{ $item->getFormattedSubTotal() }}
                                         </span>
                                     </li>
                                 @endforeach

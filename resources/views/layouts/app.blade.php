@@ -45,7 +45,7 @@
                             <a class="nav-link" href="{{ route('order.index') }}">{{ __('layout.orders') }}</a>
                         @endif
 
-                        @if(auth()->user()->role === 'admin' && Route::has('admin.index'))
+                        @if(auth()->user()->getRole() === \App\Models\User::ROLE_ADMIN && Route::has('admin.index'))
                             <a class="nav-link" href="{{ route('admin.index') }}">{{ __('layout.admin_panel') }}</a>
                         @endif
 

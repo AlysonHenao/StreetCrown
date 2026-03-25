@@ -10,6 +10,7 @@ return [
     'edit_title' => 'Editar categoría',
     'edit_subtitle' => 'Modificar categoría',
 
+    'id' => 'ID',
     'name' => 'Nombre',
     'description' => 'Descripción',
     'actions' => 'Acciones',
@@ -21,10 +22,10 @@ return [
     'back_button' => 'Volver',
 
     'empty' => 'No hay categorías registradas.',
-    'created_successfully' => 'Categoria creada exitosamente.',
-    'updated_successfully' => 'Categoria actualizada exitosamente.',
-    'deleted_successfully' => 'Categoria eliminada exitosamente.',
-    'delete_blocked' => 'Esta categoria no puede ser eliminada porque está asociada a un producto.',
+    'created_successfully' => 'Categoría creada exitosamente.',
+    'updated_successfully' => 'Categoría actualizada exitosamente.',
+    'deleted_successfully' => 'Categoría eliminada exitosamente.',
+    'delete_blocked' => 'Esta categoría no puede ser eliminada porque está asociada a un producto.',
 
     'name_required' => 'El nombre es requerido',
     'name_string' => 'El nombre debe ser texto',

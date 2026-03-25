@@ -76,7 +76,7 @@
                         </div>
                     @endif
                     @if($product->getExclusive())
-                        <span class="badge-exclusive">Exclusivo</span>
+                        <span class="badge-exclusive">{{ __('product.exclusive') }}</span>
                     @endif
                     {{-- Wishlist Button --}}
                     @auth
@@ -96,7 +96,7 @@
                     <div class="product-brand">{{ $product->getBrand() }}</div>
                     <div class="product-name">{{ $product->getName() }}</div>
                     <div class="product-footer">
-                        <span class="product-price">{{ number_format($product->getPrice(), 0, ',', '.') }} COP</span>
+                        <span class="product-price">{{ $product->getFormattedPrice() }}</span>
                         @if($product->getStock() > 0)
                             <span class="stock-badge in-stock">{{ __('product.in_stock') }}</span>
                         @else
@@ -105,7 +105,7 @@
                     </div>
                     @if(!empty($viewData['showSoldQuantity']))
                         <p style="font-size: 0.7rem; color: var(--c-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.5rem;">
-                            {{ $product->sold_quantity }} {{ __('product.units_sold') }}
+                            {{ $product->getSoldQuantity() }} {{ __('product.units_sold') }}
                         </p>
                     @endif
                     <a href="{{ route('product.show', $product->getId()) }}" class="btn btn-outline-dark w-100" style="margin-top: 0.875rem;">

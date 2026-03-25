@@ -12,27 +12,22 @@ use Illuminate\View\View;
 
 class WishlistController extends Controller
 {
-    public function __construct(private WishlistServiceInterface $wishlistService) {}
+    public function __construct(private readonly WishlistServiceInterface $wishlistService) {}
 
-    /**
-     * Display user's wishlist.
-     */
     public function index(Request $request): View
     {
         $wishlistItems = $this->wishlistService->getWishlist($request->user());
         $wishlistCount = $this->wishlistService->getWishlistCount($request->user());
 
         $viewData = [
+            'title' => __('wishlist.index_title'),
             'wishlistItems' => $wishlistItems,
             'wishlistCount' => $wishlistCount,
         ];
 
-        return view('wishlist.index', $viewData);
+        return view('wishlist.index', ['viewData' => $viewData]);
     }
 
-    /**
-     * Add product to wishlist.
-     */
     public function add(Request $request, Product $product): RedirectResponse
     {
         $added = $this->wishlistService->addProduct($request->user(), $product);
@@ -44,9 +39,6 @@ class WishlistController extends Controller
         return back()->with('info', 'Product already in wishlist');
     }
 
-    /**
-     * Remove product from wishlist.
-     */
     public function remove(Request $request, Product $product): RedirectResponse
     {
         $this->wishlistService->removeProduct($request->user(), $product);
@@ -54,9 +46,6 @@ class WishlistController extends Controller
         return back()->with('success', 'Product removed from wishlist');
     }
 
-    /**
-     * Add all wishlist items to cart.
-     */
     public function addAllToCart(Request $request): RedirectResponse
     {
         $wishlistItems = $this->wishlistService->getWishlist($request->user());
@@ -68,9 +57,6 @@ class WishlistController extends Controller
         return redirect()->route('cart.index')->with('success', 'Wishlist items can be added to cart manually');
     }
 
-    /**
-     * Clear entire wishlist.
-     */
     public function clear(Request $request): RedirectResponse
     {
         $this->wishlistService->clearWishlist($request->user());

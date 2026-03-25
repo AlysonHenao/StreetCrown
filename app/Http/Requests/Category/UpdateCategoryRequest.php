@@ -2,7 +2,7 @@
 
 // Author: Alyson Henao
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -16,7 +16,8 @@ class UpdateCategoryRequest extends FormRequest
 
     public function rules(): array
     {
-        $categoryId = $this->route('id');
+        $category = $this->route('category');
+        $categoryId = $category ? $category->getId() : null;
 
         return [
             'name' => [

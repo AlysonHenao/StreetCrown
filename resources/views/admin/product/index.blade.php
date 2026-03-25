@@ -24,7 +24,7 @@
                 <table class="table table-striped align-middle mb-0">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>{{ __('product.id') }}</th>
                             <th>{{ __('product.name') }}</th>
                             <th>{{ __('product.brand') }}</th>
                             <th>{{ __('product.price') }}</th>
@@ -41,19 +41,19 @@
                                 <td>{{ $product->getId() }}</td>
                                 <td>{{ $product->getName() }}</td>
                                 <td>{{ $product->getBrand() }}</td>
-                                <td>{{ number_format($product->getPrice(), 0, ',', '.') }} COP</td>
+                                <td>{{ $product->getFormattedPrice() }}</td>
                                 <td>{{ $product->getCategory()->getName() }}</td>
-                                <td>{{ $product->getExclusive() ? 'Sí' : 'No' }}</td>
-                                <td>{{ $product->getActive() ? 'Sí' : 'No' }}</td>
+                                <td>{{ $product->getExclusive() ? __('layout.yes') : __('layout.no') }}</td>
+                                <td>{{ $product->getActive() ? __('layout.yes') : __('layout.no') }}</td>
                                 <td>{{ $product->getStock() }}</td>
                                 <td class="d-flex gap-2">
-                                    <a href="{{ route('admin.product.edit', ['id' => $product->getId()]) }}"
+                                    <a href="{{ route('admin.product.edit', ['product' => $product->getId()]) }}"
                                        class="btn btn-sm btn-outline-secondary">
                                         {{ __('product.edit_button') }}
                                     </a>
 
                                     <form method="POST"
-                                          action="{{ route('admin.product.destroy', ['id' => $product->getId()]) }}">
+                                          action="{{ route('admin.product.destroy', ['product' => $product->getId()]) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger">

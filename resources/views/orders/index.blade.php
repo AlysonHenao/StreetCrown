@@ -32,12 +32,16 @@
                         <tr>
                             <td>#{{ $order->getId() }}</td>
                             <td>{{ $order->getDate() }}</td>
-                            <td>{{ number_format($order->getTotal(), 0, ',', '.') }} COP</td>
+                            <td>{{ $order->getFormattedTotal() }}</td>
                             <td>
-                                @if($order->getStatus() === 'pending' || $order->getStatus() === 'placed')
+                                @if($order->getStatus() === 'pending')
                                 <span class="badge bg-warning">{{ __('order.status_pending') }}</span>
-                                @elseif($order->getStatus() === 'completed' || $order->getStatus() === 'paid')
-                                <span class="badge bg-success">{{ __('order.status_completed') }}</span>
+                                @elseif($order->getStatus() === 'paid')
+                                <span class="badge bg-success">{{ __('order.status_paid') }}</span>
+                                @elseif($order->getStatus() === 'shipped')
+                                <span class="badge bg-primary">{{ __('order.status_shipped') }}</span>
+                                @elseif($order->getStatus() === 'delivered')
+                                <span class="badge bg-success">{{ __('order.status_delivered') }}</span>
                                 @elseif($order->getStatus() === 'cancelled')
                                 <span class="badge bg-danger">{{ __('order.status_cancelled') }}</span>
                                 @endif

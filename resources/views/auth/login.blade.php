@@ -7,7 +7,7 @@
 @section('content')
 <div class="auth-wrap">
     <div class="auth-card">
-        <div class="auth-logo">StreetCrown</div>
+        <div class="auth-logo">{{ __('layout.brand') }}</div>
         <div class="auth-subtitle">{{ __('auth.login_subtitle') }}</div>
 
         @if ($errors->any())
@@ -20,7 +20,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}" novalidate>
+        <form method="POST" action="{{ route('auth.login') }}" novalidate>
             @csrf
 
             <div style="margin-bottom: 1rem;">

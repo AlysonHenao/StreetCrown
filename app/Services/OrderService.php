@@ -1,4 +1,5 @@
 <?php
+
 // Author: Emmanuel Cortes
 
 namespace App\Services;
@@ -14,12 +15,7 @@ use Illuminate\Validation\ValidationException;
 
 class OrderService implements OrderServiceInterface
 {
-    private CartServiceInterface $cartService;
-
-    public function __construct(CartServiceInterface $cartService)
-    {
-        $this->cartService = $cartService;
-    }
+    public function __construct(private readonly CartServiceInterface $cartService) {}
 
     public function createFromCart(User $user, string $paymentMethod): Order
     {
@@ -34,11 +30,11 @@ class OrderService implements OrderServiceInterface
         return DB::transaction(function () use ($user, $paymentMethod) {
             $cart = $this->cartService->getCart();
 
-            $order = new Order();
+            $order = new Order;
             $order->setUserId($user->getId());
             $order->setPaymentMethod($paymentMethod);
             $order->setDate(date('Y-m-d'));
-            $order->setStatus('placed');
+            $order->setStatus('pending');
             $order->setTotal(0);
             $order->save();
 
@@ -51,7 +47,7 @@ class OrderService implements OrderServiceInterface
                     continue;
                 }
 
-                $item = new Item();
+                $item = new Item;
                 $item->setQuantity((int) $quantity);
                 $item->setPrice($product->getPrice());
                 $item->setOrderId($order->getId());

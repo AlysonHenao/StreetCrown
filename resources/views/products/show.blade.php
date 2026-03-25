@@ -36,7 +36,7 @@
                 <h1 class="product-detail-name">{{ $viewData['product']->getName() }}</h1>
 
                 <div class="product-detail-price">
-                    {{ number_format($viewData['product']->getPrice(), 0, ',', '.') }} COP
+                    {{ $viewData['product']->getFormattedPrice() }}
                     @if($viewData['product']->getDiscount() > 0)
                         <span style="font-size: 0.75rem; color: var(--c-accent); margin-left: 0.5rem; letter-spacing: 0.1em;">
                             &minus;{{ $viewData['product']->getDiscount() }}%

@@ -1,10 +1,11 @@
 <?php
+
 // Author: Alyson Henao
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateUserRoleRequest;
+use App\Http\Requests\User\UpdateUserRoleRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,14 +20,14 @@ class UserController extends Controller
 
         $query = User::query()->orderByDesc('id');
 
-        if (!empty($search)) {
+        if (! empty($search)) {
             $query->where(function ($subQuery) use ($search) {
-                $subQuery->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%');
+                $subQuery->where('name', 'like', '%'.$search.'%')
+                    ->orWhere('email', 'like', '%'.$search.'%');
             });
         }
 
-        if (!empty($role)) {
+        if (! empty($role)) {
             $query->where('role', $role);
         }
 
@@ -37,30 +38,29 @@ class UserController extends Controller
         $viewData['search'] = $search;
         $viewData['role'] = $role;
         $viewData['roles'] = [
-            'admin' => 'Admin',
-            'user' => 'User',
+            'admin' => __('user.role_admin'),
+            'user' => __('user.role_user'),
         ];
 
         return view('admin.user.index')->with('viewData', $viewData);
     }
 
-    public function edit(string $id): View
+    public function edit(User $user): View
     {
         $viewData = [];
         $viewData['title'] = __('user.edit_title');
         $viewData['subtitle'] = __('user.edit_subtitle');
-        $viewData['user'] = User::findOrFail($id);
+        $viewData['user'] = $user;
         $viewData['roles'] = [
-            'admin' => 'Admin',
-            'user' => 'User',
+            'admin' => __('user.role_admin'),
+            'user' => __('user.role_user'),
         ];
 
         return view('admin.user.edit')->with('viewData', $viewData);
     }
 
-    public function update(UpdateUserRoleRequest $request, string $id): RedirectResponse
+    public function update(UpdateUserRoleRequest $request, User $user): RedirectResponse
     {
-        $user = User::findOrFail($id);
         $user->update($request->validated());
 
         return redirect()

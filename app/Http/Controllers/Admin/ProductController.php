@@ -5,8 +5,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\Product\StoreProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
@@ -44,11 +44,9 @@ class ProductController extends Controller
         return redirect()->route('admin.product.index')->with('success', __('product.created_successfully'));
     }
 
-    public function edit(string $id): View
+    public function edit(Product $product): View
     {
         $viewData = [];
-        $product = Product::findOrFail($id);
-
         $viewData['title'] = __('product.edit_title');
         $viewData['subtitle'] = __('product.edit_subtitle');
         $viewData['product'] = $product;
@@ -58,9 +56,8 @@ class ProductController extends Controller
         return view('admin.product.edit')->with('viewData', $viewData);
     }
 
-    public function update(UpdateProductRequest $request, string $id): RedirectResponse
+    public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
-        $product = Product::findOrFail($id);
         $data = $this->normalizeExclusiveData($request->validated());
 
         $product->update($data);
@@ -68,9 +65,8 @@ class ProductController extends Controller
         return redirect()->route('admin.product.index')->with('success', __('product.updated_successfully'));
     }
 
-    public function destroy(string $id): RedirectResponse
+    public function destroy(Product $product): RedirectResponse
     {
-        $product = Product::findOrFail($id);
         $product->delete();
 
         return redirect()->route('admin.product.index')->with('success', __('product.deleted_successfully'));

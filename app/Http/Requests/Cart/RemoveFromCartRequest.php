@@ -1,8 +1,10 @@
 <?php
+
 // Author: Emmanuel Cortes
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Cart;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RemoveFromCartRequest extends FormRequest
@@ -14,8 +16,10 @@ class RemoveFromCartRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
+        $product = $this->route('product');
+
         $this->merge([
-            'product_id' => $this->route('productId'),
+            'product_id' => $product instanceof Product ? $product->getId() : null,
         ]);
     }
 

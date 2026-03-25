@@ -214,7 +214,7 @@ class Product extends Model
             ->withSum([
                 'items as sold_quantity' => function ($query) {
                     $query->whereHas('order', function ($orderQuery) {
-                        $orderQuery->whereIn('status', ['placed', 'paid', 'completed']);
+                        $orderQuery->whereIn('status', ['paid', 'shipped', 'delivered']);
                     });
                 },
             ], 'quantity')
@@ -223,7 +223,7 @@ class Product extends Model
             ->get();
     }
 
-    public static function getTopRatedProducts(int $limit = 3)
+    public static function getTopRatedProducts(int $limit = 3): Collection
     {
         return self::query()
             ->with('category')
@@ -234,5 +234,20 @@ class Product extends Model
             ->orderByDesc('id')
             ->limit($limit)
             ->get();
+    }
+
+    public function getFormattedPrice(): string
+    {
+        return number_format($this->getPrice(), 0, ',', '.').' '.__('product.currency');
+    }
+
+    public function getSoldQuantity(): int
+    {
+        return (int) ($this->attributes['sold_quantity'] ?? 0);
+    }
+
+    public function getFormattedAverageRating(): string
+    {
+        return number_format((float) ($this->attributes['reviews_avg_rating'] ?? 0), 1);
     }
 }

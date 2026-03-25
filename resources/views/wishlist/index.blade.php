@@ -1,23 +1,21 @@
 {{-- Author: Samuel Moncada Mejía --}}
+
 @extends('layouts.app')
 
-@section('title', __('wishlist.title'))
+@section('title', $viewData['title'])
 
 @section('content')
 <div class="container mt-4">
     <div class="row mb-4">
         <div class="col-md-8">
-            <h1>{{ __('wishlist.title') }}</h1>
+            <h1>{{ $viewData['title'] }}</h1>
         </div>
         <div class="col-md-4 text-end">
-            @if($wishlistCount > 0)
-            @php
-                $confirmMessage = __('wishlist.clear_wishlist');
-            @endphp
+            @if($viewData['wishlistCount'] > 0)
             <form method="POST" action="{{ route('wishlist.clear') }}" style="display: inline;">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('{{ $confirmMessage }}?');">
+                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('{{ __('wishlist.clear_wishlist_confirm') }}');">
                     {{ __('wishlist.clear_wishlist') }}
                 </button>
             </form>
@@ -25,40 +23,37 @@
         </div>
     </div>
 
-    @if($wishlistItems->isNotEmpty())
+    @if($viewData['wishlistItems']->isNotEmpty())
     <div class="row">
-        @foreach($wishlistItems as $product)
+        @foreach($viewData['wishlistItems'] as $product)
         <div class="col-md-6 col-lg-4 mb-4">
             <div class="card h-100 shadow-sm">
                 <div style="height: 250px; overflow: hidden; background-color: #f5f5f5;">
                     @if($product->getImage())
-                    <img src="{{ asset('images/products/' . $product->getImage()) }}" 
-                         class="card-img-top" 
+                    <img src="{{ asset('images/products/' . $product->getImage()) }}"
+                         class="card-img-top"
                          alt="{{ $product->getName() }}"
                          style="width: 100%; height: 100%; object-fit: cover;">
                     @else
                     <div class="d-flex align-items-center justify-content-center h-100 bg-light">
-                        <span class="text-muted">No image</span>
+                        <span class="text-muted">{{ __('product.no_image') }}</span>
                     </div>
                     @endif
                 </div>
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ $product->getName() }}</h5>
                     <p class="card-text text-muted">{{ $product->getBrand() }} - {{ $product->getSize() }}</p>
-                    
+
                     <div class="mb-3">
                         <span class="badge bg-primary">{{ $product->getColor() }}</span>
                         @if($product->getExclusive())
-                        <span class="badge bg-warning">Exclusive</span>
+                        <span class="badge bg-warning">{{ __('product.exclusive') }}</span>
                         @endif
                     </div>
 
                     <div class="mb-3">
                         <p class="h5 mb-0">
-                            <strong>{{ number_format($product->getPrice(), 0, ',', '.') }} COP</strong>
-                            @if($product->getDiscount() > 0)
-                            <small class="text-muted"><del>{{ number_format($product->getPrice() + $product->getDiscount(), 0, ',', '.') }} COP</del></small>
-                            @endif
+                            <strong>{{ $product->getFormattedPrice() }}</strong>
                         </p>
                     </div>
 
@@ -81,7 +76,7 @@
                         @else
                         <button class="btn btn-secondary btn-sm w-100" disabled>{{ __('wishlist.out_of_stock') }}</button>
                         @endif
-                        
+
                         <form method="POST" action="{{ route('wishlist.remove', $product->getId()) }}" style="display: inline; width: 100%;">
                             @csrf
                             @method('DELETE')
@@ -105,13 +100,4 @@
     </div>
     @endif
 </div>
-
-<script>
-function addToCart(event, productId) {
-    event.preventDefault();
-    // This would typically use AJAX to add to cart, 
-    // or redirect to product page with an add-to-cart action
-    alert('Add to cart functionality should be implemented');
-}
-</script>
 @endsection
