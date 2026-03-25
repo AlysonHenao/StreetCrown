@@ -18,7 +18,7 @@
                     </ul>
                 @endif
 
-                <form method="POST" action="{{ route('admin.product.update', ['id' => $viewData['product']->getId()]) }}">
+                <form method="POST" action="{{ route('admin.product.update', ['product' => $viewData['product']->getId()]) }}">
                     @csrf
                     @method('PUT')
                     @include('admin.product._form', [

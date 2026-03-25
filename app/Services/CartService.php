@@ -77,10 +77,10 @@ class CartService implements CartServiceInterface
         $products = Product::whereIn('id', array_keys($cart))
             ->where('active', true)
             ->get()
-            ->keyBy(fn(Product $product) => $product->getId());
+            ->keyBy(fn (Product $product) => $product->getId());
 
         return collect($cart)
-            ->filter(fn(int $quantity, int $productId) => $quantity > 0 && isset($products[$productId]))
+            ->filter(fn (int $quantity, int $productId) => $quantity > 0 && isset($products[$productId]))
             ->map(function (int $quantity, int $productId) use ($products) {
                 $product = $products[$productId];
 

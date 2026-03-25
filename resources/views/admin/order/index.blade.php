@@ -83,20 +83,20 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if($order->getUser()?->phone)
-                                        {{ $order->getUser()->phone }}
+                                    @if($order->getUser()?->getPhone())
+                                        {{ $order->getUser()->getPhone() }}
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($order->getUser()?->address)
-                                        {{ $order->getUser()->address }}, {{ $order->getUser()?->city }}
+                                    @if($order->getUser()?->getAddress())
+                                        {{ $order->getUser()->getAddress() }}, {{ $order->getUser()?->getCity() }}
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif
                                 </td>
-                                <td>{{ number_format($order->getTotal(), 0, ',', '.') }} COP</td>
+                                <td>{{ $order->getFormattedTotal() }}</td>
                                 @php
                                     $statusKey = $order->getStatus();
                                     $statusTranslation = __('order.status_' . $statusKey);
@@ -104,7 +104,7 @@
                                 <td><span class="badge bg-info">{{ $statusTranslation }}</span></td>
                                 <td>{{ $order->getPaymentMethod() }}</td>
                                 <td>
-                                    <a href="{{ route('admin.order.edit', ['id' => $order->getId()]) }}"
+                                    <a href="{{ route('admin.order.edit', ['order' => $order->getId()]) }}"
                                        class="btn btn-sm btn-outline-secondary">
                                         {{ __('order.edit_button') }}
                                     </a>

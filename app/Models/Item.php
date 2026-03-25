@@ -111,8 +111,13 @@ class Item extends Model
         return $this->getQuantity() * $this->getPrice();
     }
 
-    public function validateQuantity(): bool
+    public function getFormattedPrice(): string
     {
-        return $this->getQuantity() > 0;
+        return number_format($this->getPrice(), 0, ',', '.').' '.__('product.currency');
+    }
+
+    public function getFormattedSubtotal(): string
+    {
+        return number_format($this->calculateSubTotal(), 0, ',', '.').' '.__('product.currency');
     }
 }

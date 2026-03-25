@@ -68,7 +68,7 @@
                                 <td>{{ $user->getEmail() }}</td>
                                 <td>{{ $user->getRole() }}</td>
                                 <td>
-                                    <a href="{{ route('admin.user.edit', ['id' => $user->getId()]) }}"
+                                    <a href="{{ route('admin.user.edit', ['user' => $user->getId()]) }}"
                                        class="btn btn-sm btn-outline-secondary">
                                         {{ __('user.edit_button') }}
                                     </a>

@@ -24,7 +24,7 @@
                 <table class="table table-striped align-middle mb-0">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>{{ __('category.id') }}</th>
                             <th>{{ __('category.name') }}</th>
                             <th>{{ __('category.description') }}</th>
                             <th>{{ __('category.actions') }}</th>
@@ -37,13 +37,13 @@
                                 <td>{{ $category->getName() }}</td>
                                 <td>{{ $category->getDescription() }}</td>
                                 <td class="d-flex gap-2">
-                                    <a href="{{ route('admin.category.edit', ['id' => $category->getId()]) }}"
+                                    <a href="{{ route('admin.category.edit', ['category' => $category->getId()]) }}"
                                        class="btn btn-sm btn-outline-secondary">
                                         {{ __('category.edit_button') }}
                                     </a>
 
                                     <form method="POST"
-                                          action="{{ route('admin.category.destroy', ['id' => $category->getId()]) }}">
+                                          action="{{ route('admin.category.destroy', ['category' => $category->getId()]) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger">

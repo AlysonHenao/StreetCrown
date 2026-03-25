@@ -12,6 +12,7 @@ return [
     'admin_brand' => 'StreetCrown Admin',
 
     'toggle_navigation' => 'Alternar navegación',
+    'close' => 'Cerrar',
 
     'home' => 'Inicio',
     'products' => 'Productos',
@@ -35,4 +36,7 @@ return [
 
     'footer_user' => 'StreetCrown - Sección usuario',
     'footer_admin' => 'StreetCrown - Sección administrador',
+
+    'yes' => 'Sí',
+    'no' => 'No',
 ];

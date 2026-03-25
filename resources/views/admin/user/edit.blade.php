@@ -18,7 +18,7 @@
                     </ul>
                 @endif
 
-                <form method="POST" action="{{ route('admin.user.update', ['id' => $viewData['user']->getId()]) }}">
+                <form method="POST" action="{{ route('admin.user.update', ['user' => $viewData['user']->getId()]) }}">
                     @csrf
                     @method('PUT')
 

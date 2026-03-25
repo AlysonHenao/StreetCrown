@@ -2,7 +2,7 @@
 
 // Author: Samuel Moncada Mejía
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 

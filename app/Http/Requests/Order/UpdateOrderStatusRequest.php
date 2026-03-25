@@ -1,7 +1,8 @@
 <?php
+
 // Author: Alyson Henao
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Order;
 
 use Illuminate\Foundation\Http\FormRequest;
 

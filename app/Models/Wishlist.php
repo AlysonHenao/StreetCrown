@@ -8,43 +8,57 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-/**
- * WISHLIST ATTRIBUTES
- * $this->attributes['id'] - int - contains the wishlist primary key (id)
- * $this->attributes['user_id'] - int - contains the user id
- * $this->attributes['product_id'] - int - contains the product id
- * $this->attributes['created_at'] - timestamp - contains creation date
- * $this->attributes['updated_at'] - timestamp - contains update date
- * $this->user - User - contains the associated user
- * $this->product - Product - contains the associated product
- */
 class Wishlist extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'user_id',
         'product_id',
     ];
 
-    /**
-     * Get the user that owns this wishlist entry.
-     */
+    public function getId(): int
+    {
+        return $this->attributes['id'];
+    }
+
+    public function getUserId(): int
+    {
+        return $this->attributes['user_id'];
+    }
+
+    public function setUserId(int $userId): void
+    {
+        $this->attributes['user_id'] = $userId;
+    }
+
+    public function getProductId(): int
+    {
+        return $this->attributes['product_id'];
+    }
+
+    public function setProductId(int $productId): void
+    {
+        $this->attributes['product_id'] = $productId;
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get the product in this wishlist entry.
-     */
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function getProduct(): Product
+    {
+        return $this->product;
     }
 }

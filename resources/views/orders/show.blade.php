@@ -22,10 +22,14 @@
                         <div class="col-md-6">
                             <p>
                                 <strong>{{ __('order.status') }}:</strong>
-                                @if($viewData['order']->getStatus() === 'pending' || $viewData['order']->getStatus() === 'placed')
+                                @if($viewData['order']->getStatus() === 'pending')
                                 <span class="badge bg-warning">{{ __('order.status_pending') }}</span>
-                                @elseif($viewData['order']->getStatus() === 'completed' || $viewData['order']->getStatus() === 'paid')
-                                <span class="badge bg-success">{{ __('order.status_completed') }}</span>
+                                @elseif($viewData['order']->getStatus() === 'paid')
+                                <span class="badge bg-success">{{ __('order.status_paid') }}</span>
+                                @elseif($viewData['order']->getStatus() === 'shipped')
+                                <span class="badge bg-primary">{{ __('order.status_shipped') }}</span>
+                                @elseif($viewData['order']->getStatus() === 'delivered')
+                                <span class="badge bg-success">{{ __('order.status_delivered') }}</span>
                                 @elseif($viewData['order']->getStatus() === 'cancelled')
                                 <span class="badge bg-danger">{{ __('order.status_cancelled') }}</span>
                                 @endif
@@ -37,7 +41,7 @@
                             <p><strong>{{ __('order.payment_method') }}:</strong> {{ $viewData['order']->getPaymentMethod() }}</p>
                         </div>
                         <div class="col-md-6">
-                            <p><strong>{{ __('order.total') }}:</strong> <span class="text-success fw-bold">{{ number_format($viewData['order']->getTotal(), 0, ',', '.') }} COP</span></p>
+                            <p><strong>{{ __('order.total') }}:</strong> <span class="text-success fw-bold">{{ $viewData['order']->getFormattedTotal() }}</span></p>
                         </div>
                     </div>
                 </div>
@@ -64,8 +68,8 @@
                                 <tr>
                                     <td>{{ $item->getProduct()->getName() }}</td>
                                     <td>{{ $item->getQuantity() }}</td>
-                                    <td>{{ number_format($item->getPrice(), 0, ',', '.') }} COP</td>
-                                    <td>{{ number_format(($item->getPrice() * $item->getQuantity()), 0, ',', '.') }} COP</td>
+                                    <td>{{ $item->getFormattedPrice() }}</td>
+                                    <td>{{ $item->getFormattedSubTotal() }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -87,7 +91,7 @@
                     <hr />
                     <p class="text-end">
                         <strong>{{ __('order.total') }}:</strong><br />
-                        <span class="text-success fs-5 fw-bold">{{ number_format($viewData['order']->getTotal(), 0, ',', '.') }} COP</span>
+                        <span class="text-success fs-5 fw-bold">{{ $viewData['order']->getFormattedTotal() }}</span>
                     </p>
                 </div>
             </div>

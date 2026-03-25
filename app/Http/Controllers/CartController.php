@@ -5,9 +5,9 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\CartServiceInterface;
-use App\Http\Requests\AddToCartRequest;
-use App\Http\Requests\RemoveFromCartRequest;
-use App\Http\Requests\UpdateCartItemRequest;
+use App\Http\Requests\Cart\AddToCartRequest;
+use App\Http\Requests\Cart\RemoveFromCartRequest;
+use App\Http\Requests\Cart\UpdateCartItemRequest;
 use App\Models\Item;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
@@ -25,8 +25,8 @@ class CartController extends Controller
         $viewData = [];
         $viewData['title'] = __('order.cart_title');
         $viewData['cartItems'] = $cartItems;
-        $viewData['totalQuantity'] = $cartItems->sum(fn(Item $item) => $item->getQuantity());
-        $viewData['totalAmount'] = $cartItems->sum(fn(Item $item) => $item->calculateSubTotal());
+        $viewData['totalQuantity'] = $cartItems->sum(fn (Item $item) => $item->getQuantity());
+        $viewData['totalAmount'] = $cartItems->sum(fn (Item $item) => $item->calculateSubTotal());
 
         return view('cart.index', ['viewData' => $viewData]);
     }
@@ -42,32 +42,40 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success', __('order.cart_added_successfully'));
     }
 
-    public function update(UpdateCartItemRequest $request, int $productId): RedirectResponse|JsonResponse
+    public function update(UpdateCartItemRequest $request, Product $product): RedirectResponse|JsonResponse
     {
-        $product = Product::where('active', true)->findOrFail($productId);
+        $activeProduct = Product::where('active', true)->findOrFail($product->getId());
         $quantity = (int) $request->validated('quantity');
-        $this->cartService->updateProductQuantity($product, $quantity);
+
+        $this->cartService->updateProductQuantity($activeProduct, $quantity);
 
         if ($request->expectsJson()) {
             $cartItems = $this->cartService->buildCartItems();
-            $cartItem = $cartItems->firstWhere('product_id', $productId);
+            $cartItem = $cartItems->firstWhere('product_id', $activeProduct->getId());
+
+            if ($cartItem === null) {
+                return response()->json([
+                    'success' => false,
+                    'message' => __('order.cart_updated_successfully'),
+                ], 404);
+            }
 
             return response()->json([
                 'success' => true,
                 'price' => $cartItem->getPrice(),
                 'quantity' => $cartItem->getQuantity(),
                 'subtotal' => $cartItem->calculateSubTotal(),
-                'totalQuantity' => $cartItems->sum(fn(Item $item) => $item->getQuantity()),
-                'totalAmount' => $cartItems->sum(fn(Item $item) => $item->calculateSubTotal()),
+                'totalQuantity' => $cartItems->sum(fn (Item $item) => $item->getQuantity()),
+                'totalAmount' => $cartItems->sum(fn (Item $item) => $item->calculateSubTotal()),
             ]);
         }
 
         return redirect()->route('cart.index')->with('success', __('order.cart_updated_successfully'));
     }
 
-    public function remove(RemoveFromCartRequest $request, int $productId): RedirectResponse
+    public function remove(RemoveFromCartRequest $request, Product $product): RedirectResponse
     {
-        $this->cartService->removeProduct($productId);
+        $this->cartService->removeProduct($product->getId());
 
         return redirect()->route('cart.index')->with('success', __('order.cart_removed_successfully'));
     }

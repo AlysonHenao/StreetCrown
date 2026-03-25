@@ -1,4 +1,5 @@
 <?php
+
 // Author: Alyson Henao
 
 return [
@@ -16,6 +17,8 @@ return [
     'search_placeholder' => 'Buscar por nombre o correo',
     'filter_role' => 'Filtrar por rol',
     'all_roles' => 'Todos los roles',
+    'role_admin' => 'Administrador',
+    'role_user' => 'Usuario',
 
     'edit_button' => 'Editar',
     'update_button' => 'Actualizar rol',

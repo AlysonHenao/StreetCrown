@@ -4,6 +4,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -143,33 +144,23 @@ class Order extends Model
         return $total;
     }
 
-    public function generateInvoice(): string
-    {
-        return 'INV-'.$this->getId();
-    }
-
-    public function sendOrderConfirmation(): bool
-    {
-        return true;
-    }
-
-    public function validatePaymentMethod(): bool
-    {
-        return in_array($this->getPaymentMethod(), ['cash', 'card', 'transfer']);
-    }
-
     public function pay(): void
     {
         $this->setStatus('paid');
     }
 
-    public function fail(): void
+    public function getFormattedTotal(): string
     {
-        $this->setStatus('failed');
+        return number_format($this->getTotal(), 0, ',', '.').' '.__('product.currency');
     }
 
-    public function refund(): void
+    public function getFormattedDate(): string
     {
-        $this->setStatus('refunded');
+        return Carbon::parse($this->getDate())->format('d/m/Y');
+    }
+
+    public function getFormattedCreatedAt(): string
+    {
+        return Carbon::parse($this->getCreatedAt())->format('d/m/Y H:i');
     }
 }

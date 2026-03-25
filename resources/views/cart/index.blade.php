@@ -1,4 +1,5 @@
 {{-- Author: Emmanuel Cortes --}}
+
 @extends('layouts.app')
 
 @section('title', $viewData['title'])
@@ -23,7 +24,7 @@
                 @foreach($viewData['cartItems'] as $cartItem)
                 <tr>
                     <td>{{ $cartItem->getProduct()->getName() }}</td>
-                    <td>{{ number_format($cartItem->getPrice(), 0, ',', '.') }} COP</td>
+                    <td>{{ $cartItem->getFormattedPrice() }}</td>
                     <td>
                         <input
                             type="number"
@@ -33,9 +34,10 @@
                             value="{{ $cartItem->getQuantity() }}"
                             data-product-id="{{ $cartItem->getProductId() }}"
                             data-csrf="{{ csrf_token() }}"
-                            data-route="{{ route('cart.update', $cartItem->getProductId()) }}">
+                            data-route="{{ route('cart.update', $cartItem->getProductId()) }}"
+                            data-error-message="{{ __('order.cart_update_error') }}">
                     </td>
-                    <td class="subtotal-cell">{{ number_format($cartItem->calculateSubTotal(), 0, ',', '.') }} COP</td>
+                    <td class="subtotal-cell">{{ $cartItem->getFormattedSubTotal() }}</td>
                     <td>
                         <form method="POST" action="{{ route('cart.remove', $cartItem->getProductId()) }}">
                             @csrf
@@ -50,7 +52,7 @@
     </div>
     <br>
     <p><strong>{{ __('order.total_items') }}:</strong> <span id="total-quantity">{{ $viewData['totalQuantity'] }}</span></p>
-    <p><strong>{{ __('order.total') }}:</strong> <span id="total-amount">{{ number_format($viewData['totalAmount'], 0, ',', '.') }}</span> COP</p>
+    <p><strong>{{ __('order.total') }}:</strong> <span id="total-amount">{{ $cartItem->getFormattedPrice() }}</span></p>
     <br>
     <form action="{{ route('cart.clear') }}" method="POST" class="mb-3">
         @csrf
@@ -73,9 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const quantity = this.value;
             if (quantity < 1) return;
 
-            const productId = this.dataset.productId;
             const route = this.dataset.route;
             const csrfToken = this.dataset.csrf;
+            const errorMessage = this.dataset.errorMessage;
 
             try {
                 const response = await fetch(route, {
@@ -89,13 +91,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
                 if (!response.ok) {
-                    throw new Error('Error updating cart');
+                    throw new Error(errorMessage);
                 }
 
                 const data = await response.json();
 
                 if (data.success) {
-                    // Update subtotal for this item
                     const row = this.closest('tr');
                     const subtotalCell = row.querySelector('.subtotal-cell');
                     subtotalCell.textContent = new Intl.NumberFormat('es-CO', {
@@ -104,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         minimumFractionDigits: 0
                     }).format(data.subtotal);
 
-                    // Update totals
                     document.getElementById('total-quantity').textContent = data.totalQuantity;
                     document.getElementById('total-amount').textContent = new Intl.NumberFormat('es-CO', {
                         style: 'currency',
@@ -113,8 +113,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     }).format(data.totalAmount);
                 }
             } catch (error) {
-                console.error('Error:', error);
-                alert('Error updating cart. Please try again.');
+                console.error('Cart update error:', error);
+                alert(errorMessage);
                 location.reload();
             }
         });

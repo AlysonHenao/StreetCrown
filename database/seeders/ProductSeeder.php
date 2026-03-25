@@ -12,16 +12,18 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        $exclusive = Category::where('name', 'Exclusive')->first();
-
+        $exclusiveCategory = Category::where('name', 'Exclusive')->first();
         $normalCategories = Category::where('name', '!=', 'Exclusive')->get();
 
-        Product::factory()->count(30)->make()->each(function ($product) use ($exclusive, $normalCategories) {
+        if ($exclusiveCategory === null || $normalCategories->isEmpty()) {
+            return;
+        }
 
+        Product::factory()->count(30)->make()->each(function (Product $product) use ($exclusiveCategory, $normalCategories): void {
             if ($product->getExclusive()) {
-                $product->category_id = $exclusive->getId();
+                $product->setCategoryId($exclusiveCategory->getId());
             } else {
-                $product->category_id = $normalCategories->random()->getId();
+                $product->setCategoryId($normalCategories->random()->getId());
             }
 
             $product->save();

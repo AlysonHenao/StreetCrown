@@ -4,12 +4,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CheckoutRequest;
 use App\Contracts\CartServiceInterface;
+use App\Http\Requests\Order\CheckoutRequest;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -53,12 +52,12 @@ class OrderController extends Controller
         return view('orders.show', ['viewData' => $viewData]);
     }
 
-    public function checkout(): View
+    public function checkout(): View|RedirectResponse
     {
         $cart = Session::get(self::CART_KEY, []);
 
         if (count($cart) === 0) {
-            return redirect()->route('cart.index')->with('error', __('order.cart_empty'))->view();
+            return redirect()->route('cart.index')->with('error', __('order.cart_empty'));
         }
 
         $cartItems = $this->cartService->buildCartItems();
@@ -67,8 +66,8 @@ class OrderController extends Controller
         $viewData = [
             'title' => __('checkout.title'),
             'cartItems' => $cartItems,
-            'totalQuantity' => $cartItems->sum(fn(Item $item) => $item->getQuantity()),
-            'totalAmount' => $cartItems->sum(fn(Item $item) => $item->calculateSubTotal()),
+            'totalQuantity' => $cartItems->sum(fn (Item $item) => $item->getQuantity()),
+            'totalAmount' => $cartItems->sum(fn (Item $item) => $item->calculateSubTotal()),
             'user' => $user,
         ];
 
@@ -85,7 +84,6 @@ class OrderController extends Controller
 
         $validated = $request->validated();
         $paymentMethod = (string) $validated['payment_method'];
-        /** @var User $authenticatedUser */
         $authenticatedUser = Auth::user();
 
         $authenticatedUser->setName($validated['name']);
@@ -103,7 +101,7 @@ class OrderController extends Controller
             $order->setUserId($authenticatedUserId);
             $order->setPaymentMethod($paymentMethod);
             $order->setDate(date('Y-m-d'));
-            $order->setStatus('placed');
+            $order->setStatus('pending');
             $order->setTotal(0);
             $order->save();
 
@@ -123,7 +121,6 @@ class OrderController extends Controller
                 $item->setPrice($product->getPrice());
                 $item->save();
 
-                // Decrease product stock
                 $newStock = max(0, $product->getStock() - (int) $quantity);
                 $product->setStock($newStock);
                 $product->save();
