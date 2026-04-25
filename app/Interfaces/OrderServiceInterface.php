@@ -2,7 +2,7 @@
 
 // Author: Emmanuel Cortes
 
-namespace App\Contracts;
+namespace App\Interfaces;
 
 use App\Models\Order;
 use App\Models\User;

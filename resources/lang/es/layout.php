@@ -18,11 +18,12 @@ return [
     'products' => 'Productos',
     'cart' => 'Carrito',
     'wishlist' => 'Deseos',
+    'orders' => 'Pedidos',
+    'profile' => 'Mi Perfil',
     'login' => 'Iniciar sesión',
     'register' => 'Registrarse',
     'logout' => 'Cerrar sesión',
     'dashboard' => 'Panel',
-    'orders' => 'Pedidos',
     'admin_panel' => 'Panel admin',
 
     'welcome_lead' => 'Bienvenido a la tienda de gorras más exclusiva.',

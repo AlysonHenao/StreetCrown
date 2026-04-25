@@ -27,8 +27,12 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
 
-    Route::get('/products/{product}/reviews/create', 'App\Http\Controllers\ReviewController@create')->name('review.create');
-    Route::post('/products/{product}/reviews', 'App\Http\Controllers\ReviewController@store')->name('review.store');
+    Route::get('/profile', 'App\Http\Controllers\ProfileController@show')->name('profile.show');
+    Route::get('/profile/edit', 'App\Http\Controllers\ProfileController@edit')->name('profile.edit');
+    Route::put('/profile', 'App\Http\Controllers\ProfileController@update')->name('profile.update');
+
+    Route::get('/products/{productId}/reviews/create', 'App\Http\Controllers\ReviewController@create')->name('review.create');
+    Route::post('/products/{productId}/reviews', 'App\Http\Controllers\ReviewController@store')->name('review.store');
 
     Route::get('/wishlist', 'App\Http\Controllers\WishlistController@index')->name('wishlist.index');
     Route::post('/wishlist/{product}', 'App\Http\Controllers\WishlistController@add')->name('wishlist.add');

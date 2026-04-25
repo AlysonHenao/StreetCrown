@@ -17,8 +17,7 @@ class AuthController extends Controller
 {
     public function showLogin(): View
     {
-        $viewData = [];
-        $viewData['title'] = __('auth.login_title');
+        $viewData = ['title' => __('auth.login_title')];
 
         return view('auth.login', ['viewData' => $viewData]);
     }
@@ -42,8 +41,7 @@ class AuthController extends Controller
 
     public function showRegister(): View
     {
-        $viewData = [];
-        $viewData['title'] = __('auth.register_title');
+        $viewData = ['title' => __('auth.register_title')];
 
         return view('auth.register', ['viewData' => $viewData]);
     }
@@ -55,6 +53,10 @@ class AuthController extends Controller
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'role' => User::ROLE_USER,
+            'phone' => $request->input('phone'),
+            'address' => $request->input('address'),
+            'city' => $request->input('city'),
+            'postal_code' => $request->input('postal_code'),
         ]);
 
         Auth::login($user);

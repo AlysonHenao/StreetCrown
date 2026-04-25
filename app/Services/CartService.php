@@ -4,7 +4,7 @@
 
 namespace App\Services;
 
-use App\Contracts\CartServiceInterface;
+use App\Interfaces\CartServiceInterface;
 use App\Models\Item;
 use App\Models\Product;
 use Illuminate\Support\Collection;

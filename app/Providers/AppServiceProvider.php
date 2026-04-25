@@ -4,9 +4,9 @@
 
 namespace App\Providers;
 
-use App\Contracts\CartServiceInterface;
-use App\Contracts\OrderServiceInterface;
-use App\Contracts\WishlistServiceInterface;
+use App\Interfaces\CartServiceInterface;
+use App\Interfaces\OrderServiceInterface;
+use App\Interfaces\WishlistServiceInterface;
 use App\Services\CartService;
 use App\Services\OrderService;
 use App\Services\WishlistService;

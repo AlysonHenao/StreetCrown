@@ -9,8 +9,10 @@
     <h1>{{ $viewData['title'] }}</h1>
 
     <div class="row">
-        <div class="col-md-6">
-            <h4>{{ __('order.order_summary') }}</h4>
+        <div class="col-md-7">
+            <h4 style="font-family: var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 1rem;">
+                {{ __('order.order_summary') }}
+            </h4>
             <div class="table-responsive">
                 <table class="table table-sm">
                     <thead class="table-light">
@@ -39,99 +41,38 @@
             </div>
         </div>
 
-        <div class="col-md-6">
-            <h4>{{ __('checkout.personal_details') }}</h4>
+        <div class="col-md-5">
+            <h4 style="font-family: var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 1rem;">
+                {{ __('checkout.delivery_info') }}
+            </h4>
+
+            <div style="border: 1px solid var(--c-border); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 1.5rem;">
+                @foreach([
+                    __('profile.name') => $viewData['user']->getName(),
+                    __('profile.phone') => $viewData['user']->getPhone(),
+                    __('profile.address') => $viewData['user']->getAddress(),
+                    __('profile.city') => $viewData['user']->getCity(),
+                    __('profile.postal_code') => $viewData['user']->getPostalCode(),
+                ] as $label => $value)
+                    <div style="display: flex; padding: 0.75rem 1rem; border-bottom: 1px solid var(--c-border); background: var(--c-surface);">
+                        <span style="font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-muted); width: 120px; flex-shrink: 0;">{{ $label }}</span>
+                        <span style="font-size: 0.88rem; color: var(--c-text);">{{ $value ?? '—' }}</span>
+                    </div>
+                @endforeach
+            </div>
+
+            <p style="font-size: 0.78rem; color: var(--c-muted);">
+                {{ __('checkout.wrong_data') }}
+                <a href="{{ route('profile.edit') }}">{{ __('checkout.edit_profile') }}</a>
+            </p>
 
             <form action="{{ route('order.store') }}" method="POST">
                 @csrf
 
-                <div class="mb-3">
-                    <label for="name" class="form-label">{{ __('checkout.name') }}</label>
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        class="form-control @error('name') is-invalid @enderror"
-                        value="{{ old('name', $viewData['user']->getName()) }}"
-                        required>
-                    @error('name')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">{{ __('checkout.email') }}</label>
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        class="form-control @error('email') is-invalid @enderror"
-                        value="{{ old('email', $viewData['user']->getEmail()) }}"
-                        required>
-                    @error('email')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="phone" class="form-label">{{ __('checkout.phone') }}</label>
-                    <input
-                        type="tel"
-                        name="phone"
-                        id="phone"
-                        class="form-control @error('phone') is-invalid @enderror"
-                        value="{{ old('phone', $viewData['user']->getPhone()) }}"
-                        required>
-                    @error('phone')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="address" class="form-label">{{ __('checkout.address') }}</label>
-                    <input
-                        type="text"
-                        name="address"
-                        id="address"
-                        class="form-control @error('address') is-invalid @enderror"
-                        value="{{ old('address', $viewData['user']->getAddress()) }}"
-                        required>
-                    @error('address')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="city" class="form-label">{{ __('checkout.city') }}</label>
-                    <input
-                        type="text"
-                        name="city"
-                        id="city"
-                        class="form-control @error('city') is-invalid @enderror"
-                        value="{{ old('city', $viewData['user']->getCity()) }}"
-                        required>
-                    @error('city')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="postal_code" class="form-label">{{ __('checkout.postal_code') }}</label>
-                    <input
-                        type="text"
-                        name="postal_code"
-                        id="postal_code"
-                        class="form-control @error('postal_code') is-invalid @enderror"
-                        value="{{ old('postal_code', $viewData['user']->getPostalCode()) }}"
-                        required>
-                    @error('postal_code')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
+                <div class="mb-4">
                     <label for="payment_method" class="form-label">{{ __('checkout.payment_method') }}</label>
-                    <select name="payment_method" id="payment_method" class="form-select @error('payment_method') is-invalid @enderror" required>
+                    <select name="payment_method" id="payment_method"
+                            class="form-select @error('payment_method') is-invalid @enderror" required>
                         <option value="">{{ __('checkout.select_payment_method') }}</option>
                         <option value="cash" {{ old('payment_method') === 'cash' ? 'selected' : '' }}>{{ __('order.payment_cash') }}</option>
                         <option value="card" {{ old('payment_method') === 'card' ? 'selected' : '' }}>{{ __('order.payment_card') }}</option>

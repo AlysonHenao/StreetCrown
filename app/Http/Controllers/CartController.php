@@ -4,7 +4,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\CartServiceInterface;
+use App\Interfaces\CartServiceInterface;
 use App\Http\Requests\Cart\AddToCartRequest;
 use App\Http\Requests\Cart\RemoveFromCartRequest;
 use App\Http\Requests\Cart\UpdateCartItemRequest;

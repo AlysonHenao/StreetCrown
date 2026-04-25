@@ -45,6 +45,10 @@
                             <a class="nav-link" href="{{ route('order.index') }}">{{ __('layout.orders') }}</a>
                         @endif
 
+                        @if(Route::has('profile.show'))
+                            <a class="nav-link" href="{{ route('profile.show') }}">{{ __('layout.profile') }}</a>
+                        @endif
+
                         @if(auth()->user()->getRole() === \App\Models\User::ROLE_ADMIN && Route::has('admin.index'))
                             <a class="nav-link" href="{{ route('admin.index') }}">{{ __('layout.admin_panel') }}</a>
                         @endif

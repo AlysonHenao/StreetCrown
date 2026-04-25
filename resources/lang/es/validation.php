@@ -20,4 +20,9 @@ return [
 
     'name_required' => 'El nombre es requerido.',
     'name_min' => 'El nombre debe tener al menos 2 caracteres.',
+
+    'phone_required' => 'El teléfono es requerido.',
+    'address_required' => 'La dirección es requerida.',
+    'city_required' => 'La ciudad es requerida.',
+    'postal_code_required' => 'El código postal es requerido.',
 ];
