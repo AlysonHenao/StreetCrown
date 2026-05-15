@@ -1,3 +1,4 @@
+{{-- Author: Emmanuel Cortés --}}
 @extends('layouts.app')
 
 @section('content')

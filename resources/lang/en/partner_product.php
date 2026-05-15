@@ -1,5 +1,7 @@
 <?php
 
+// Author: Emmanuel Cortés
+
 return [
     'title' => 'Partner Products',
     'empty' => 'No partner products are available at this moment.',

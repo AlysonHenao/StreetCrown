@@ -1,5 +1,7 @@
 <?php
 
+// Author: Emmanuel Cortés
+
 namespace App\Services;
 
 class StoreMapService

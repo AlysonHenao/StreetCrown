@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\PartnerProductService;
 use Illuminate\View\View;
 
-/**
- * Author: Your Name
- */
+//Author: Emmanuel Cortés
 class PartnerProductController extends Controller
 {
     public function __construct(

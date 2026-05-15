@@ -7,9 +7,7 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-/**
- * Author: Your Name
- */
+// Author: Emmanuel Cortés
 class ProductApiController extends Controller
 {
     /**

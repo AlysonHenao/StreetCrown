@@ -4,9 +4,8 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 
-/**
- * Author: Your Name
- */
+
+// Author: Emmanuel Cortés
 class PartnerProductService
 {
     /**

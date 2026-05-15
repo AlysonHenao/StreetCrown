@@ -1,5 +1,7 @@
 <?php
 
+// Author: Emmanuel Cortés
+
 namespace App\Http\Controllers;
 
 use App\Services\StoreMapService;
