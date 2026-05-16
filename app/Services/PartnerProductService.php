@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Http;
 class PartnerProductService
 {
     /**
-     * Get products from the partner team API.
+     * Devuelve los productos (películas) consumidos del equipo aliado.
      */
     public function getAvailableProducts(): array
     {
-        $url = config('services.partner_products.url');
+        $url = config('services.partner_products.url'); // URL ahora apunta a /api/movies
 
         if (!$url) {
             return [];
@@ -25,6 +25,7 @@ class PartnerProductService
             return [];
         }
 
-        return $response->json('data') ?? [];
+        // Devuelves directamente el arreglo de películas que ellos envían
+        return $response->json() ?? [];
     }
 }

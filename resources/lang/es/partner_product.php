@@ -1,11 +1,10 @@
 <?php
-
-// Author: Emmanuel Cortés
-
 return [
-    'title' => 'Productos aliados',
-    'empty' => 'No hay productos aliados disponibles en este momento.',
-    'stock' => 'Inventario',
-    'not_available' => 'No disponible',
-    'view_product' => 'Ver producto',
+    'title' => 'Películas Aliadas',
+    'empty' => 'No hay películas disponibles de este equipo.',
+    'director' => 'Director',
+    'genre' => 'Género',
+    'views' => 'Vistas',
+    'classification' => 'Clasificación',
+    'description' => 'Descripción',
 ];

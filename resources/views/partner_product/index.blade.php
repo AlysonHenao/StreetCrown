@@ -9,37 +9,33 @@
     <p>{{ __('partner_product.empty') }}</p>
     @else
     <div class="row">
-        @foreach($viewData['products'] as $product)
+        @foreach($viewData['products'] as $movie)
         <div class="col-md-4 mb-4">
             <div class="card h-100">
-                @if(!empty($product['image_url']))
+                @if(!empty($movie['file_name']))
                 <img
-                    src="{{ $product['image_url'] }}"
+                    src="{{ asset('storage/movies/'.$movie['file_name']) }}"
                     class="card-img-top"
-                    alt="{{ $product['name'] }}">
+                    alt="{{ $movie['title'] }}">
                 @endif
 
                 <div class="card-body">
-                    <h5 class="card-title">{{ $product['name'] }}</h5>
-
+                    <h5 class="card-title">{{ $movie['title'] }}</h5>
                     <p class="card-text">
-                        {{ $product['formatted_price'] ?? $product['price'] }}
+                        <strong>{{ __('partner_product.director') }}:</strong> {{ $movie['director'] }}
                     </p>
-
                     <p class="card-text">
-                        {{ __('partner_product.stock') }}:
-                        {{ $product['stock'] ?? __('partner_product.not_available') }}
+                        <strong>{{ __('partner_product.genre') }}:</strong> {{ $movie['genre'] }}
                     </p>
-
-                    @if(!empty($product['product_url']))
-                    <a
-                        href="{{ $product['product_url'] }}"
-                        class="btn btn-primary"
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        {{ __('partner_product.view_product') }}
-                    </a>
-                    @endif
+                    <p class="card-text">
+                        <strong>{{ __('partner_product.views') }}:</strong> {{ $movie['views'] }}
+                    </p>
+                    <p class="card-text">
+                        <strong>{{ __('partner_product.classification') }}:</strong> {{ $movie['classification'] }}
+                    </p>
+                    <p class="card-text">
+                        <strong>{{ __('partner_product.description') }}:</strong> {{ $movie['description'] }}
+                    </p>
                 </div>
             </div>
         </div>

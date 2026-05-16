@@ -42,6 +42,10 @@
                     <a class="nav-link" href="{{ route('store.index') }}">{{ __('store.title') }}</a>
                     @endif
 
+                    @if(Route::has('partner_product.index'))
+                    <a class="nav-link" href="{{ route('partner_product.index') }}">Peliculas</a>
+                    @endif
+
                     @auth
                     @if(Route::has('wishlist.index'))
                     <a class="nav-link" href="{{ route('wishlist.index') }}">{{ __('layout.wishlist') }}</a>

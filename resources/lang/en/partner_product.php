@@ -1,11 +1,10 @@
 <?php
-
-// Author: Emmanuel Cortés
-
 return [
-    'title' => 'Partner Products',
-    'empty' => 'No partner products are available at this moment.',
-    'stock' => 'Stock',
-    'not_available' => 'Not available',
-    'view_product' => 'View product',
+    'title' => 'Partner Movies',
+    'empty' => 'No partner movies available at the moment.',
+    'director' => 'Director',
+    'genre' => 'Genre',
+    'views' => 'Views',
+    'classification' => 'Classification',
+    'description' => 'Description',
 ];
