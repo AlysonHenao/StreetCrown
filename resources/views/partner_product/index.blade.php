@@ -18,7 +18,8 @@
                             <img
                                 src="{{ $movie['image_url'] }}"
                                 class="card-img-top"
-                                alt="{{ $movie['title'] }}">
+                                alt="{{ $movie['title'] }}"
+                                style="object-fit: contain;">
                         @elseif(!empty($movie['file_name']))
                             <img
                                 src="{{ asset('storage/movies/'.$movie['file_name']) }}"

@@ -43,7 +43,7 @@ class PartnerProductService
                     'classification' => data_get($movie, 'classification', 'No disponible'),
                     'description' => data_get($movie, 'description', 'Sin descripción'),
                     'file_name' => data_get($movie, 'file_name'),
-                    'image_url' => data_get($movie, 'image_url'),
+                    'image_url' => data_get($movie, 'image_url') ?? data_get($movie, 'file_name'),
                 ];
             })->toArray();
         } catch (\Throwable $e) {
