@@ -2,7 +2,7 @@ FROM php:8.2-apache
 
 WORKDIR /var/www/html
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     unzip \
     zip \
@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     sqlite3 \
-    libsqlite3-dev
+    libsqlite3-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo_mysql pdo_sqlite mbstring zip bcmath gd
 
