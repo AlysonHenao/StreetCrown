@@ -24,7 +24,7 @@ return [
     'register' => 'Registrarse',
     'logout' => 'Cerrar sesión',
     'dashboard' => 'Panel',
-    'admin_panel' => 'Panel admin',
+    'admin_panel' => 'admin',
 
     'welcome_lead' => 'Bienvenido a la tienda de gorras más exclusiva.',
     'view_products' => 'Ver productos',

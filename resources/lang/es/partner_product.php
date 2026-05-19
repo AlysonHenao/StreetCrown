@@ -1,6 +1,6 @@
 <?php
 return [
-    'title' => 'Películas Aliadas',
+    'title' => 'Peliculas',
     'empty' => 'No hay películas disponibles de este equipo.',
     'director' => 'Director',
     'genre' => 'Género',

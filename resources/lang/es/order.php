@@ -23,6 +23,7 @@ return [
     'order_details' => 'Detalles del pedido',
     'items' => 'Artículos del pedido',
     'order_summary' => 'Resumen del pedido',
+    'customer_info' => 'Datos del cliente',
     'product' => 'Producto',
     'image' => 'Imagen',
     'quantity' => 'Cantidad',

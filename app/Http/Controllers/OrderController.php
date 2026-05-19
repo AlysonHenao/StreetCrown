@@ -9,6 +9,7 @@ use App\Interfaces\OrderServiceInterface;
 use App\Http\Requests\Order\StoreOrderRequest;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -25,9 +26,12 @@ class OrderController extends Controller
 
     public function index(): View
     {
+        /** @var User $user */
+        $user = Auth::user();
+
         $viewData = [
             'orders' => Order::with('items.product')
-                ->where('user_id', Auth::user()->getId())
+                ->where('user_id', $user->getId())
                 ->orderByDesc('id')
                 ->get(),
             'title' => __('order.index_title'),
@@ -38,11 +42,14 @@ class OrderController extends Controller
 
     public function show(Order $order): View|RedirectResponse
     {
-        if ($order->getUserId() !== Auth::user()->getId()) {
+        /** @var User $user */
+        $user = Auth::user();
+
+        if ($order->getUserId() !== $user->getId()) {
             return redirect()->route('order.index');
         }
 
-        $order->loadMissing('items.product');
+        $order->loadMissing('items.product', 'user');
 
         $viewData = [
             'order' => $order,

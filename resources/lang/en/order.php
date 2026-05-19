@@ -32,6 +32,7 @@ return [
     'order_details' => 'Order details',
     'items' => 'Order items',
     'order_summary' => 'Order summary',
+    'customer_info' => 'Customer information',
     'product' => 'Product',
     'image' => 'Image',
     'quantity' => 'Quantity',

@@ -5,25 +5,50 @@
 @section('title', $viewData['title'])
 
 @section('content')
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8">
-            <h2 class="mb-4">{{ __('order.show_title') }} #{{ $viewData['order']->getId() }}</h2>
+<div class="container mt-5 order-show-page">
+    <div class="order-hero mb-4">
+        <div>
+            <p class="order-hero-label mb-2">{{ __('order.order_details') }}</p>
+            <h1 class="order-hero-title mb-0">{{ __('order.show_title') }} #{{ $viewData['order']->getId() }}</h1>
+        </div>
+        <div class="order-hero-chip">
+            @if($viewData['order']->getStatus() === 'pending')
+            <span class="badge bg-warning text-dark">{{ __('order.status_pending') }}</span>
+            @elseif($viewData['order']->getStatus() === 'paid')
+            <span class="badge bg-success">{{ __('order.status_paid') }}</span>
+            @elseif($viewData['order']->getStatus() === 'shipped')
+            <span class="badge bg-primary">{{ __('order.status_shipped') }}</span>
+            @elseif($viewData['order']->getStatus() === 'delivered')
+            <span class="badge bg-success">{{ __('order.status_delivered') }}</span>
+            @elseif($viewData['order']->getStatus() === 'cancelled')
+            <span class="badge bg-danger">{{ __('order.status_cancelled') }}</span>
+            @endif
+        </div>
+    </div>
 
-            <div class="card mb-4">
-                <div class="card-header bg-dark text-white">
-                    <h5 class="mb-0">{{ __('order.order_details') }}</h5>
-                </div>
-                <div class="card-body text-white">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <p><strong>{{ __('order.date') }}:</strong> {{ $viewData['order']->getDate() }}</p>
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card order-card mb-4">
+                <div class="card-header">{{ __('order.order_details') }}</div>
+                <div class="card-body">
+                    <div class="order-meta-grid">
+                        <div class="order-meta-item">
+                            <span class="order-meta-label">{{ __('order.date') }}</span>
+                            <span class="order-meta-value">{{ $viewData['order']->getDate() }}</span>
                         </div>
-                        <div class="col-md-6">
-                            <p>
-                                <strong>{{ __('order.status') }}:</strong>
+                        <div class="order-meta-item">
+                            <span class="order-meta-label">{{ __('order.payment_method') }}</span>
+                            <span class="order-meta-value">{{ $viewData['order']->getPaymentMethod() }}</span>
+                        </div>
+                        <div class="order-meta-item">
+                            <span class="order-meta-label">{{ __('order.total') }}</span>
+                            <span class="order-meta-value text-success">{{ $viewData['order']->getFormattedTotal() }}</span>
+                        </div>
+                        <div class="order-meta-item">
+                            <span class="order-meta-label">{{ __('order.status') }}</span>
+                            <span class="order-meta-value">
                                 @if($viewData['order']->getStatus() === 'pending')
-                                <span class="badge bg-warning">{{ __('order.status_pending') }}</span>
+                                <span class="badge bg-warning text-dark">{{ __('order.status_pending') }}</span>
                                 @elseif($viewData['order']->getStatus() === 'paid')
                                 <span class="badge bg-success">{{ __('order.status_paid') }}</span>
                                 @elseif($viewData['order']->getStatus() === 'shipped')
@@ -33,28 +58,18 @@
                                 @elseif($viewData['order']->getStatus() === 'cancelled')
                                 <span class="badge bg-danger">{{ __('order.status_cancelled') }}</span>
                                 @endif
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <p><strong>{{ __('order.payment_method') }}:</strong> {{ $viewData['order']->getPaymentMethod() }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>{{ __('order.total') }}:</strong> <span class="text-success fw-bold">{{ $viewData['order']->getFormattedTotal() }}</span></p>
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
 
             @if($viewData['order']->getItems()->isNotEmpty())
-            <div class="card">
-                <div class="card-header bg-dark text-white">
-                    <h5 class="mb-0">{{ __('order.items') }}</h5>
-                </div>
-                <div class="card-body">
+            <div class="card order-card">
+                <div class="card-header">{{ __('order.items') }}</div>
+                <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-sm">
+                        <table class="table table-dark table-hover mb-0 order-items-table">
                             <thead>
                                 <tr>
                                     <th>{{ __('order.product') }}</th>
@@ -80,23 +95,59 @@
             @endif
         </div>
 
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header bg-dark text-white">
-                    <h5 class="mb-0">{{ __('order.order_summary') }}</h5>
-                </div>
-                <div class="card-body text-white">
-                    <p><strong>{{ __('order.order_id') }}:</strong> #{{ $viewData['order']->getId() }}</p>
-                    <p><strong>{{ __('order.created_at') }}:</strong> {{ $viewData['order']->getCreatedAt() }}</p>
+        <div class="col-lg-4">
+            <div class="card order-card mb-4">
+                <div class="card-header">{{ __('order.order_summary') }}</div>
+                <div class="card-body">
+                    <div class="order-summary-line">
+                        <span>{{ __('order.order_id') }}</span>
+                        <strong>#{{ $viewData['order']->getId() }}</strong>
+                    </div>
+                    <div class="order-summary-line">
+                        <span>{{ __('order.created_at') }}</span>
+                        <strong>{{ $viewData['order']->getCreatedAt() }}</strong>
+                    </div>
                     <hr />
-                    <p class="text-end">
-                        <strong>{{ __('order.total') }}:</strong><br />
-                        <span class="text-success fs-5 fw-bold">{{ $viewData['order']->getFormattedTotal() }}</span>
-                    </p>
+                    <div class="order-summary-total">
+                        <span>{{ __('order.total') }}</span>
+                        <strong>{{ $viewData['order']->getFormattedTotal() }}</strong>
+                    </div>
                 </div>
             </div>
 
-            <a href="{{ route('order.index') }}" class="btn btn-secondary w-100 mt-3">
+            <div class="card order-card mb-4">
+                <div class="card-header">{{ __('order.customer_info') }}</div>
+                <div class="card-body">
+                    <div class="order-customer-grid">
+                        <div>
+                            <span class="order-meta-label">{{ __('profile.name') }}</span>
+                            <div class="order-customer-value">{{ $viewData['order']->getUser()->getName() }}</div>
+                        </div>
+                        <div>
+                            <span class="order-meta-label">{{ __('profile.email') }}</span>
+                            <div class="order-customer-value">{{ $viewData['order']->getUser()->getEmail() }}</div>
+                        </div>
+                        <div>
+                            <span class="order-meta-label">{{ __('profile.phone') }}</span>
+                            <div class="order-customer-value">{{ $viewData['order']->getUser()->getPhone() ?? '—' }}</div>
+                        </div>
+                        <div>
+                            <span class="order-meta-label">{{ __('profile.address') }}</span>
+                            <div class="order-customer-value">{{ $viewData['order']->getUser()->getAddress() ?? '—' }}</div>
+                        </div>
+                        <div>
+                            <span class="order-meta-label">{{ __('profile.city') }}</span>
+                            <div class="order-customer-value">{{ $viewData['order']->getUser()->getCity() ?? '—' }}</div>
+                        </div>
+                        <div>
+                            <span class="order-meta-label">{{ __('profile.postal_code') }}</span>
+                            <div class="order-customer-value">{{ $viewData['order']->getUser()->getPostalCode() ?? '—' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="{{ route('order.index') }}" class="btn btn-outline-light w-100">
                 {{ __('order.back_to_orders') }}
             </a>
         </div>

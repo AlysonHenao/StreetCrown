@@ -349,6 +349,48 @@ footer small { color: var(--c-muted) !important; }
   background: transparent;
 }
 
+.order-show-page {
+  color: var(--c-white);
+}
+
+.order-show-page .order-hero-label,
+.order-show-page .order-meta-label,
+.order-show-page .order-summary-line span,
+.order-show-page .order-summary-total span,
+.order-show-page .order-customer-value,
+.order-show-page .order-meta-value,
+.order-show-page .table,
+.order-show-page .table th,
+.order-show-page .table td {
+  color: var(--c-white);
+}
+
+.order-show-page .order-hero-title,
+.order-show-page .card-header,
+.order-show-page .order-summary-total strong,
+.order-show-page .order-summary-line strong {
+  color: var(--c-white) !important;
+}
+
+.order-show-page .order-card .card-header {
+  background-color: var(--c-subtle) !important;
+}
+
+.order-show-page .order-meta-item {
+  border-color: var(--c-border);
+}
+
+.order-show-page .order-items-table thead th,
+.order-show-page .order-items-table tbody td {
+  color: var(--c-white);
+}
+
+.order-show-page .order-summary-line span,
+.order-show-page .order-summary-total span,
+.order-show-page .order-meta-label {
+  color: rgba(255, 255, 255, 0.72);
+}
+
 .btn {
   font-family: var(--font-body);
   font-size: 0.72rem;
