@@ -2,11 +2,11 @@
 
 // Author: Samuel Moncada Mejía
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -17,9 +17,6 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:2', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'password_confirmation' => ['required', 'string'],
             'phone' => ['required', 'string', 'max:20'],
             'address' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:100'],
@@ -32,12 +29,6 @@ class RegisterRequest extends FormRequest
         return [
             'name.required' => __('validation.name_required'),
             'name.min' => __('validation.name_min'),
-            'email.required' => __('validation.email_required'),
-            'email.email' => __('validation.email_invalid'),
-            'email.unique' => __('validation.email_unique'),
-            'password.required' => __('validation.password_required'),
-            'password.min' => __('validation.password_min'),
-            'password.confirmed' => __('validation.password_confirmed'),
             'phone.required' => __('validation.phone_required'),
             'address.required' => __('validation.address_required'),
             'city.required' => __('validation.city_required'),

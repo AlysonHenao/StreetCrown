@@ -4,7 +4,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\WishlistServiceInterface;
+use App\Interfaces\WishlistServiceInterface;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -33,34 +33,23 @@ class WishlistController extends Controller
         $added = $this->wishlistService->addProduct($request->user(), $product);
 
         if ($added) {
-            return back()->with('success', 'Product added to wishlist');
+            return back()->with('success', __('wishlist.added_successfully'));
         }
 
-        return back()->with('info', 'Product already in wishlist');
+        return back()->with('info', __('wishlist.already_added'));
     }
 
     public function remove(Request $request, Product $product): RedirectResponse
     {
         $this->wishlistService->removeProduct($request->user(), $product);
 
-        return back()->with('success', 'Product removed from wishlist');
-    }
-
-    public function addAllToCart(Request $request): RedirectResponse
-    {
-        $wishlistItems = $this->wishlistService->getWishlist($request->user());
-
-        if ($wishlistItems->isEmpty()) {
-            return back()->with('info', 'Wishlist is empty');
-        }
-
-        return redirect()->route('cart.index')->with('success', 'Wishlist items can be added to cart manually');
+        return back()->with('success', __('wishlist.removed_successfully'));
     }
 
     public function clear(Request $request): RedirectResponse
     {
         $this->wishlistService->clearWishlist($request->user());
 
-        return back()->with('success', 'Wishlist cleared');
+        return back()->with('success', __('wishlist.cleared_successfully'));
     }
 }

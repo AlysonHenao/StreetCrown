@@ -4,7 +4,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Review\ReviewRequest;
+use App\Http\Requests\Review\StoreReviewRequest;
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\RedirectResponse;
@@ -13,8 +13,10 @@ use Illuminate\View\View;
 
 class ReviewController extends Controller
 {
-    public function create(Product $product): View
+    public function create(int $productId): View
     {
+        $product = Product::findOrFail($productId);
+
         $viewData = [
             'product' => $product,
             'title' => __('review.create_title'),
@@ -23,15 +25,15 @@ class ReviewController extends Controller
         return view('reviews.create', ['viewData' => $viewData]);
     }
 
-    public function store(ReviewRequest $request, Product $product): RedirectResponse
+    public function store(StoreReviewRequest $request, int $productId): RedirectResponse
     {
         $validated = $request->validated();
-        $validated['user_id'] = Auth::id();
-        $validated['product_id'] = $product->getId();
+        $validated['user_id'] = Auth::user()->getId();
+        $validated['product_id'] = $productId;
 
-        Review::create($validated);
+        Review::create($validated); 
 
-        return redirect()->route('product.show', $product->getId())
+        return redirect()->route('product.show', $productId)
             ->with('success', __('review.created_successfully'));
     }
 }

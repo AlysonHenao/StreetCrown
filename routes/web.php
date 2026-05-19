@@ -15,6 +15,8 @@ Route::post('/cart', 'App\Http\Controllers\CartController@add')->name('cart.add'
 Route::put('/cart/{product}', 'App\Http\Controllers\CartController@update')->name('cart.update');
 Route::delete('/cart/{product}', 'App\Http\Controllers\CartController@remove')->name('cart.remove');
 Route::delete('/cart', 'App\Http\Controllers\CartController@clear')->name('cart.clear');
+Route::get('/stores', 'App\Http\Controllers\StoreController@index')->name('store.index');
+Route::get('/products-partners', 'App\Http\Controllers\PartnerProductController@index')->name('partner_product.index');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', 'App\Http\Controllers\AuthController@showLogin')->name('login');
@@ -27,8 +29,12 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
 
-    Route::get('/products/{product}/reviews/create', 'App\Http\Controllers\ReviewController@create')->name('review.create');
-    Route::post('/products/{product}/reviews', 'App\Http\Controllers\ReviewController@store')->name('review.store');
+    Route::get('/profile', 'App\Http\Controllers\ProfileController@show')->name('profile.show');
+    Route::get('/profile/edit', 'App\Http\Controllers\ProfileController@edit')->name('profile.edit');
+    Route::put('/profile', 'App\Http\Controllers\ProfileController@update')->name('profile.update');
+
+    Route::get('/products/{productId}/reviews/create', 'App\Http\Controllers\ReviewController@create')->name('review.create');
+    Route::post('/products/{productId}/reviews', 'App\Http\Controllers\ReviewController@store')->name('review.store');
 
     Route::get('/wishlist', 'App\Http\Controllers\WishlistController@index')->name('wishlist.index');
     Route::post('/wishlist/{product}', 'App\Http\Controllers\WishlistController@add')->name('wishlist.add');

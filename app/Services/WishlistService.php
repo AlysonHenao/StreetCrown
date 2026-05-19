@@ -4,7 +4,7 @@
 
 namespace App\Services;
 
-use App\Contracts\WishlistServiceInterface;
+use App\Interfaces\WishlistServiceInterface;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Wishlist;

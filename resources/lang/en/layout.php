@@ -17,11 +17,12 @@ return [
     'products' => 'Products',
     'cart' => 'Cart',
     'wishlist' => 'Wishlist',
+    'orders' => 'Orders',
+    'profile' => 'My Profile',
     'login' => 'Login',
     'register' => 'Register',
     'logout' => 'Logout',
     'dashboard' => 'Dashboard',
-    'orders' => 'Orders',
     'admin_panel' => 'Admin panel',
 
     'admin_products' => 'Products',

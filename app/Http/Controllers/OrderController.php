@@ -4,33 +4,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\CartServiceInterface;
-use App\Http\Requests\Order\CheckoutRequest;
+use App\Interfaces\CartServiceInterface;
+use App\Interfaces\OrderServiceInterface;
+use App\Http\Requests\Order\StoreOrderRequest;
 use App\Models\Item;
 use App\Models\Order;
-use App\Models\Product;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class OrderController extends Controller
 {
-    use AuthorizesRequests;
-
     private const CART_KEY = 'shopping_cart';
 
-    public function __construct(private readonly CartServiceInterface $cartService) {}
+    public function __construct(
+        private readonly CartServiceInterface $cartService,
+        private readonly OrderServiceInterface $orderService,
+    ) {}
 
     public function index(): View
     {
-        $authenticatedUserId = (int) Auth::id();
-
         $viewData = [
             'orders' => Order::with('items.product')
-                ->where('user_id', $authenticatedUserId)
+                ->where('user_id', Auth::user()->getId())
                 ->orderByDesc('id')
                 ->get(),
             'title' => __('order.index_title'),
@@ -39,9 +36,12 @@ class OrderController extends Controller
         return view('orders.index', ['viewData' => $viewData]);
     }
 
-    public function show(Order $order): View
+    public function show(Order $order): View|RedirectResponse
     {
-        $this->authorize('view', $order);
+        if ($order->getUserId() !== Auth::user()->getId()) {
+            return redirect()->route('order.index');
+        }
+
         $order->loadMissing('items.product');
 
         $viewData = [
@@ -61,20 +61,19 @@ class OrderController extends Controller
         }
 
         $cartItems = $this->cartService->buildCartItems();
-        $user = Auth::user();
 
         $viewData = [
             'title' => __('checkout.title'),
             'cartItems' => $cartItems,
             'totalQuantity' => $cartItems->sum(fn (Item $item) => $item->getQuantity()),
             'totalAmount' => $cartItems->sum(fn (Item $item) => $item->calculateSubTotal()),
-            'user' => $user,
+            'user' => Auth::user(),
         ];
 
         return view('checkout.index', ['viewData' => $viewData]);
     }
 
-    public function store(CheckoutRequest $request): RedirectResponse
+    public function store(StoreOrderRequest $request): RedirectResponse
     {
         $cart = Session::get(self::CART_KEY, []);
 
@@ -82,59 +81,10 @@ class OrderController extends Controller
             return redirect()->route('cart.index')->with('error', __('order.cart_empty'));
         }
 
-        $validated = $request->validated();
-        $paymentMethod = (string) $validated['payment_method'];
-        $authenticatedUser = Auth::user();
-
-        $authenticatedUser->setName($validated['name']);
-        $authenticatedUser->setEmail($validated['email']);
-        $authenticatedUser->setPhone($validated['phone']);
-        $authenticatedUser->setAddress($validated['address']);
-        $authenticatedUser->setCity($validated['city']);
-        $authenticatedUser->setPostalCode($validated['postal_code']);
-        $authenticatedUser->save();
-
-        $authenticatedUserId = (int) $authenticatedUser->getId();
-
-        $order = DB::transaction(function () use ($cart, $paymentMethod, $authenticatedUserId) {
-            $order = new Order;
-            $order->setUserId($authenticatedUserId);
-            $order->setPaymentMethod($paymentMethod);
-            $order->setDate(date('Y-m-d'));
-            $order->setStatus('pending');
-            $order->setTotal(0);
-            $order->save();
-
-            $total = 0;
-
-            foreach ($cart as $productId => $quantity) {
-                $product = Product::where('active', true)->find((int) $productId);
-
-                if (! $product || (int) $quantity <= 0) {
-                    continue;
-                }
-
-                $item = new Item;
-                $item->setOrderId($order->getId());
-                $item->setProductId($product->getId());
-                $item->setQuantity((int) $quantity);
-                $item->setPrice($product->getPrice());
-                $item->save();
-
-                $newStock = max(0, $product->getStock() - (int) $quantity);
-                $product->setStock($newStock);
-                $product->save();
-
-                $total += $item->calculateSubTotal();
-            }
-
-            $order->setTotal($total);
-            $order->save();
-
-            return $order;
-        });
-
-        Session::forget(self::CART_KEY);
+        $order = $this->orderService->createFromCart(
+            Auth::user(),
+            $request->validated('payment_method')
+        );
 
         return redirect()->route('order.show', $order->getId())
             ->with('success', __('order.created_successfully'));

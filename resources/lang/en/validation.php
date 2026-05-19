@@ -21,4 +21,9 @@ return [
 
     'name_required' => 'Name is required.',
     'name_min' => 'Name must be at least 2 characters.',
+
+    'phone_required' => 'Phone is required.',
+    'address_required' => 'Address is required.',
+    'city_required' => 'City is required.',
+    'postal_code_required' => 'Postal code is required.',
 ];
