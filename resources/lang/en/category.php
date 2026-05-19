@@ -10,6 +10,7 @@ return [
     'edit_title' => 'Edit category',
     'edit_subtitle' => 'Modify category',
 
+    'id' => 'ID',
     'name' => 'Name',
     'description' => 'Description',
     'actions' => 'Actions',
