@@ -15,11 +15,7 @@ class PartnerProductController extends Controller
     {
         $viewData = [];
         $viewData['title'] = __('partner_product.title');
-
-        $movies = $this->partnerProductService->getAvailableProducts();
-
-        // Transformamos cada película a MovieResource para mantener formato consistente
-        $viewData['products'] = MovieResource::collection($movies);
+        $viewData['products'] = $this->partnerProductService->getAvailableProducts();
 
         return view('partner_product.index')->with('viewData', $viewData);
     }

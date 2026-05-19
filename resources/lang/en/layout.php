@@ -35,4 +35,10 @@ return [
     'footer_admin' => 'StreetCrown - Admin section',
     
     'admin_reports' => 'Reports',
+
+    'close' => 'Close',
+    'welcome_lead' => 'Welcome to the most exclusive cap store.',
+    'view_products' => 'View products',
+    'yes' => 'Yes',
+    'no' => 'No',
 ];

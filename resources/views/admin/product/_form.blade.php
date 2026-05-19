@@ -80,7 +80,7 @@
     <div class="mb-3">
         <label for="category_id" class="form-label">{{ __('product.category') }}</label>
         <select id="category_id" name="category_id" class="form-select">
-            <option value="">Seleccione una categoría</option>
+            <option value="">{{ __('product.select_category') }}</option>
             @foreach($categories as $category)
                 <option
                     value="{{ $category->getId() }}"
