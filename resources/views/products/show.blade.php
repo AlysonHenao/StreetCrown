@@ -29,7 +29,7 @@
                 <div class="product-detail-brand">
                     {{ $viewData['product']->getBrand() }}
                     @if($viewData['product']->getExclusive())
-                        &nbsp;&mdash;&nbsp;Exclusivo
+                        &nbsp;&mdash;&nbsp;{{ __('product.exclusive') }}
                     @endif
                 </div>
 
@@ -52,25 +52,27 @@
 
                 <div class="product-detail-meta">
                     <div class="product-meta-item">
-                        <div class="product-meta-label">Color</div>
+                        <div class="product-meta-label">{{ __('product.color') }}</div>
                         <div class="product-meta-value">{{ $viewData['product']->getColor() }}</div>
                     </div>
                     <div class="product-meta-item">
-                        <div class="product-meta-label">Talla</div>
+                        <div class="product-meta-label">{{ __('product.size') }}</div>
                         <div class="product-meta-value">{{ $viewData['product']->getSize() }}</div>
                     </div>
                     <div class="product-meta-item">
-                        <div class="product-meta-label">Stock</div>
+                        <div class="product-meta-label">{{ __('product.stock') }}</div>
                         <div class="product-meta-value">
                             @if($viewData['product']->getStock() > 0)
-                                <span style="color: var(--c-success);">{{ $viewData['product']->getStock() }} disponibles</span>
+                                <span style="color: var(--c-success);">
+                                    {{ $viewData['product']->getStock() }} {{ __('product.available_units') }}
+                                </span>
                             @else
-                                <span style="color: var(--c-muted);">Agotado</span>
+                                <span style="color: var(--c-muted);">{{ __('product.out_of_stock') }}</span>
                             @endif
                         </div>
                     </div>
                     <div class="product-meta-item">
-                        <div class="product-meta-label">Categoria</div>
+                        <div class="product-meta-label">{{ __('product.category') }}</div>
                         <div class="product-meta-value">{{ $viewData['product']->getCategory()->getName() }}</div>
                     </div>
                 </div>
@@ -131,7 +133,9 @@
             <div class="section-header">
                 <div>
                     <div class="section-title">{{ __('product.reviews') }}</div>
-                    <div class="section-subtitle">{{ $viewData['product']->getReviews()->count() }} comentarios</div>
+                    <div class="section-subtitle">
+                        {{ $viewData['product']->getReviews()->count() }} {{ __('product.comments') }}
+                    </div>
                 </div>
             </div>
 

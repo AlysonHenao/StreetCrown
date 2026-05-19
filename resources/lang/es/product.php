@@ -70,4 +70,5 @@ return [
     'non_exclusive_only' => 'Solo no exclusivos',
     'filter_button' => 'Aplicar filtros',
     'clear_button' => 'Limpiar',
+    'select_category' => 'Seleccione una categoría',
 ];

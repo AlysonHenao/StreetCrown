@@ -43,7 +43,7 @@
                     @endif
 
                     @if(Route::has('partner_product.index'))
-                    <a class="nav-link" href="{{ route('partner_product.index') }}">Peliculas</a>
+                    <a class="nav-link" href="{{ route('partner_product.index') }}">{{ __('partner_product.title') }}</a>
                     @endif
 
                     @auth

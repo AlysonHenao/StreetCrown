@@ -72,4 +72,6 @@ return [
     'non_exclusive_only' => 'Non-exclusive only',
     'filter_button' => 'Apply filters',
     'clear_button' => 'Clear',
-    ];
+    'select_category' => 'Select a category',
+    
+];
