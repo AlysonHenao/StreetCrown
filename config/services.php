@@ -34,8 +34,13 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+
     'google_maps' => [
         'embed_api_key' => env('GOOGLE_MAPS_EMBED_API_KEY'),
+    ],
+
+    'partner_products' => [
+        'url' => env('PARTNER_PRODUCTS_API_URL'),
     ],
 
 ];
