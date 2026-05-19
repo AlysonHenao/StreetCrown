@@ -1,7 +1,8 @@
 <?php
 
-use App\Providers\AppServiceProvider;
+// Author: Alyson Henao
 
 return [
-    AppServiceProvider::class,
+    App\Providers\AppServiceProvider::class,
+    App\Providers\ReportServiceProvider::class,
 ];

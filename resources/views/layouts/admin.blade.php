@@ -28,9 +28,6 @@
 
             <div class="collapse navbar-collapse" id="adminNavbar">
                 <div class="navbar-nav ms-auto align-items-lg-center">
-                    @if(Route::has('admin.index'))
-                        <a class="nav-link" href="{{ route('admin.index') }}">{{ __('layout.admin_panel') }}</a>
-                    @endif
                     @if(Route::has('admin.product.index'))
                         <a class="nav-link" href="{{ route('admin.product.index') }}">{{ __('layout.admin_products') }}</a>
                     @endif
@@ -39,6 +36,9 @@
                     @endif
                     @if(Route::has('admin.order.index'))
                         <a class="nav-link" href="{{ route('admin.order.index') }}">{{ __('layout.admin_orders') }}</a>
+                    @endif
+                    @if(Route::has('admin.report.index'))
+                        <a class="nav-link" href="{{ route('admin.report.index') }}">{{ __('layout.admin_reports') }}</a>
                     @endif
                     @if(Route::has('admin.user.index'))
                         <a class="nav-link" href="{{ route('admin.user.index') }}">{{ __('layout.admin_users') }}</a>
