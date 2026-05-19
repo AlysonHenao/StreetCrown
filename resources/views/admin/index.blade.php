@@ -46,6 +46,14 @@
     </div>
     @endif
 
+    @if(Route::has('admin.report.index'))
+    <div class="admin-module-item">
+        <div class="admin-module-title">{{ __('admin.reports_module') }}</div>
+        <p class="admin-module-desc">{{ __('admin.reports_description') }}</p>
+        <a href="{{ route('admin.report.index') }}" class="btn btn-primary">{{ __('admin.go_reports') }}</a>
+    </div>
+    @endif
+
     @if(Route::has('admin.user.index'))
     <div class="admin-module-item">
         <div class="admin-module-title">{{ __('admin.users_module') }}</div>

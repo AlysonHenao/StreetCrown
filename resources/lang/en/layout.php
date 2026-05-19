@@ -33,4 +33,6 @@ return [
 
     'footer_user' => 'StreetCrown - User section',
     'footer_admin' => 'StreetCrown - Admin section',
+    
+    'admin_reports' => 'Reports',
 ];

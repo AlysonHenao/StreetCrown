@@ -12,14 +12,17 @@ return [
     'products_module' => 'Products',
     'categories_module' => 'Categories',
     'orders_module' => 'Orders',
+    'reports_module' => 'Reports',
 
     'products_description' => 'Manage the catalog, create, edit and delete products.',
     'categories_description' => 'Manage product categories.',
     'orders_description' => 'View and manage orders.',
+    'reports_description' => 'Generate and view reports about business performance.',
 
     'go_products' => 'Go to products',
     'go_categories' => 'Go to categories',
     'go_orders' => 'Go to orders',
+    'go_reports' => 'Go to reports',
 
     'total_products' => 'Total products',
     'total_categories' => 'Total categories',

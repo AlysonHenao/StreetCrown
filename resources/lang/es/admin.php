@@ -12,14 +12,17 @@ return [
     'products_module' => 'Productos',
     'categories_module' => 'Categorías',
     'orders_module' => 'Pedidos',
-
+    'reports_module' => 'Reportes',
+    
     'products_description' => 'Administra el catálogo, crea, edita y elimina productos.',
     'categories_description' => 'Gestiona las categorías disponibles para clasificar productos.',
     'orders_description' => 'Consulta y administra los pedidos registrados.',
+    'reports_description' => 'Genera y visualiza informes sobre el rendimiento del negocio.',
 
     'go_products' => 'Ir a productos',
     'go_categories' => 'Ir a categorías',
     'go_orders' => 'Ir a pedidos',
+    'go_reports' => 'Ir a reportes',
 
     'total_products' => 'Productos totales',
     'total_categories' => 'Categorías totales',

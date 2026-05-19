@@ -71,4 +71,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/orders', 'App\Http\Controllers\Admin\OrderController@index')->name('order.index');
     Route::get('/orders/{order}/edit', 'App\Http\Controllers\Admin\OrderController@edit')->name('order.edit');
     Route::put('/orders/{order}', 'App\Http\Controllers\Admin\OrderController@update')->name('order.update');
+
+    Route::get('/reports', 'App\Http\Controllers\Admin\ReportController@index')->name('report.index');
+    Route::get('/reports/sales/{format}', 'App\Http\Controllers\Admin\ReportController@sales')
+        ->whereIn('format', ['pdf', 'excel'])
+        ->name('report.sales');
 });

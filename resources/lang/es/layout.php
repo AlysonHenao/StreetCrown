@@ -40,4 +40,6 @@ return [
 
     'yes' => 'Sí',
     'no' => 'No',
+
+    'admin_reports' => 'Reportes',
 ];
