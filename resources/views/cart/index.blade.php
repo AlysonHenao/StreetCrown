@@ -37,7 +37,7 @@
                             data-route="{{ route('cart.update', $cartItem->getProductId()) }}"
                             data-error-message="{{ __('order.cart_update_error') }}">
                     </td>
-                    <td class="subtotal-cell">{{ $cartItem->getFormattedSubTotal() }}</td>
+                    <td class="subtotal-cell">{{ $cartItem->getFormattedSubtotal() }}</td>
                     <td>
                         <form method="POST" action="{{ route('cart.remove', $cartItem->getProductId()) }}">
                             @csrf

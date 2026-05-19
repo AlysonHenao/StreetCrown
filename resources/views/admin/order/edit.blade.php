@@ -94,7 +94,7 @@
                                             {{ $item->getProduct()->getName() }} x {{ $item->getQuantity() }}
                                         </span>
                                         <span>
-                                            {{ $item->getFormattedSubTotal() }}
+                                            {{ $item->getFormattedSubtotal() }}
                                         </span>
                                     </li>
                                 @endforeach
