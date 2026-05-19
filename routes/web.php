@@ -15,6 +15,8 @@ Route::post('/cart', 'App\Http\Controllers\CartController@add')->name('cart.add'
 Route::put('/cart/{product}', 'App\Http\Controllers\CartController@update')->name('cart.update');
 Route::delete('/cart/{product}', 'App\Http\Controllers\CartController@remove')->name('cart.remove');
 Route::delete('/cart', 'App\Http\Controllers\CartController@clear')->name('cart.clear');
+Route::get('/stores', 'App\Http\Controllers\StoreController@index')->name('store.index');
+Route::get('/products-partners', 'App\Http\Controllers\PartnerProductController@index')->name('partner_product.index');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', 'App\Http\Controllers\AuthController@showLogin')->name('login');
